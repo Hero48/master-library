@@ -33,4 +33,11 @@ class AddStudent(FlaskForm):
     student_id = StringField('Student ID', validators=[DataRequired()])
     name = StringField('Student Name', validators=[DataRequired()])
     form = StringField('Student Form', validators=[DataRequired()])
+    password = StringField('Enter New Password ', validators=[DataRequired()])
     submit = SubmitField('Add Sutdent')
+
+class AddBook(FlaskForm):
+    book_id = StringField('Book ID', validators=[DataRequired()])
+    book_title = StringField('Book Title', validators=[DataRequired()])
+    
+    submit = SubmitField('Add Book')

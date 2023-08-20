@@ -127,9 +127,12 @@ def view_borrowed_books():
 
 @app.route('/view-students', methods=['GET', 'POST'])
 def view_students():
+    students = Students.query.all() 
     form = Search()
     if form.validate_on_submit():
-        students = Students.query.all() 
+        students = Students.query.filter_by(student_id=form.search.data).all()
+
+        return render_template('view-students.html', form=form, students=students)
     return render_template('view-students.html', form=form, students=students)
 
 
@@ -138,10 +141,23 @@ def view_students():
 def add_student():
     form = AddStudent()
     if form.validate_on_submit():
-        student = Students(name=form.name.data, student_id=form.student_id.data)
+        password = bcrypt.generate_password_hash(form.password.data)
+        student = Students(name=form.name.data, student_id=form.student_id.data, password=password, form=form.form.data)
         db.session.add(student)
         db.session.commit()
-
         flash('Student Added Successfully')
         return redirect(url_for('profile'))
     return render_template('add-student.html', form=form, title='Add Student')
+
+@app.route('/add-book', methods=['GET', 'POST'])
+@login_required
+def add_book():
+    form = AddBook()
+    if form.validate_on_submit():
+        book = Library(title=form.book_title.data, serial_no=form.book_id.data)
+        db.session.add(book)
+        db.session.commit()
+
+        flash('Book added successfully', 'success')
+        return redirect(url_for('profile'))
+    return render_template('add-book.html', form=form, title='Add Book')
