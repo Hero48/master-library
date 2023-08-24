@@ -17,22 +17,22 @@ id="sec-d382"
 <div class="u-clearfix u-sheet u-valign-top u-sheet-1">
   <div class="u-expanded-width-sm u-expanded-width-xs u-form u-form-1">
     <form
-      action=""
+      action="{{url_for('view_borrowed_books')}}"
       class="u-clearfix u-form-horizontal u-form-spacing-15 u-inner-form"
       method="POST"
       source="custom"
       style="padding: 15px"
     >
       <div class="u-form-group u-label-none">
-        <label class="u-label" for="email-ef64"> Email </label>
+        <label class="u-label" for="email-ef64"> search </label>
         {{ form.search(required=True, id="search", class_="u-border-3
         u-border-custom-color-1 u-input u-input-rectangle u-none
-        u-radius-19 u-text-custom-color-1") }}
+        u-radius-19 u-text-custom-color-1", placeholder='Search') }}
       </div>
       <div class="u-form-group u-form-submit">
         <a
           class="u-border-2 u-border-custom-color-1 u-border-hover-custom-color-3 u-btn u-btn-round u-btn-submit u-button-style u-custom-color-1 u-hover-custom-color-1 u-radius-18 u-btn-1"
-          href="#"
+          href="{{url_for('view_borrowed_books')}}"
         >
           Search
         </a>
@@ -111,72 +111,9 @@ id="sec-d382"
             >{{ book.returned_date }}</td>
         </tr>
         {% endfor %}
-        <tr style="height: 54px">
-          <td
-            class="u-border-1 u-border-custom-color-3 u-first-column u-grey-5 u-table-cell u-text-custom-color-1 u-table-cell-13"
-          >
-            Row 2
-          </td>
-          <td class="u-border-1 u-border-custom-color-3 u-table-cell">
-            Description
-          </td>
-          <td class="u-border-1 u-border-custom-color-3 u-table-cell">
-            Description
-          </td>
-          <td class="u-border-1 u-border-custom-color-3 u-table-cell">
-            Description
-          </td>
-          <td
-            class="u-border-1 u-border-custom-color-3 u-table-cell"
-          ></td>
-          <td
-            class="u-border-1 u-border-custom-color-3 u-table-cell"
-          ></td>
-        </tr>
-        <tr style="height: 51px">
-          <td
-            class="u-border-1 u-border-custom-color-3 u-first-column u-grey-5 u-table-cell u-text-custom-color-1 u-table-cell-19"
-          >
-            Row 3
-          </td>
-          <td class="u-border-1 u-border-custom-color-3 u-table-cell">
-            Description
-          </td>
-          <td class="u-border-1 u-border-custom-color-3 u-table-cell">
-            Description
-          </td>
-          <td class="u-border-1 u-border-custom-color-3 u-table-cell">
-            Description
-          </td>
-          <td
-            class="u-border-1 u-border-custom-color-3 u-table-cell"
-          ></td>
-          <td
-            class="u-border-1 u-border-custom-color-3 u-table-cell"
-          ></td>
-        </tr>
-        <tr style="height: 60px">
-          <td
-            class="u-border-1 u-border-custom-color-3 u-first-column u-grey-5 u-table-cell u-text-custom-color-1 u-table-cell-25"
-          >
-            Row 4
-          </td>
-          <td class="u-border-1 u-border-custom-color-3 u-table-cell">
-            Description
-          </td>
-          <td class="u-border-1 u-border-custom-color-3 u-table-cell">
-            Description
-          </td>
-          <td class="u-border-1 u-border-custom-color-3 u-table-cell">
-            Description
-          </td>
-          <td
-            class="u-border-1 u-border-custom-color-3 u-table-cell"
-          ></td>
-          <td
-            class="u-border-1 u-border-custom-color-3 u-table-cell"
-          ></td>
-        </tr>
+    
+         
+      
       </tbody>
     </table>
   </div>

@@ -27,7 +27,7 @@ rel="stylesheet"
           <input type="hidden" value="" name="recaptchaResponse">
         </form>
       </div>
-      <h4 class="u-align-center u-text u-text-custom-color-1 u-text-default u-text-1">Borrowed books</h4>
+      <h4 class="u-align-center u-text u-text-custom-color-1 u-text-default u-text-1">Active Users</h4>
       <div class="u-expanded-width u-table u-table-responsive u-table-1">
         <table class="u-table-entity u-table-entity-1">
           <colgroup>
@@ -42,16 +42,17 @@ rel="stylesheet"
             <tr style="height: 21px;">
               <th class="u-border-1 u-border-custom-color-3 u-table-cell">Names</th>
               <th class="u-border-1 u-border-custom-color-3 u-table-cell">Students' ID</th>
-              <th class="u-border-1 u-border-custom-color-3 u-table-cell">Book Title</th>
-              <th class="u-border-1 u-border-custom-color-3 u-table-cell">Book Serial No.</th>
-              <th class="u-border-1 u-border-custom-color-3 u-table-cell">Borrowed Date</th>
-              <th class="u-border-1 u-border-custom-color-3 u-table-cell">Returned Date</th>
+              <th class="u-border-1 u-border-custom-color-3 u-table-cell">Entry time</th>
+              <th class="u-border-1 u-border-custom-color-3 u-table-cell">Exit time</th>
+              <th class="u-border-1 u-border-custom-color-3 u-table-cell">Form</th>
+              <th class="u-border-1 u-border-custom-color-3 u-table-cell"><a href="{{url_for('logout_student')}}">Logout</a></th>
             </tr>
           </thead>
           <tbody class="u-table-body u-text-custom-color-1 u-table-body-1">
+            {% for student in students %}
             <tr style="height: 50px;">
               <td class="u-border-1 u-border-custom-color-3 u-first-column u-grey-5 u-table-cell u-text-custom-color-1 u-table-cell-7">Row 1</td>
-              <td class="u-border-1 u-border-custom-color-3 u-table-cell">Description</td>
+              <td class="u-border-1 u-border-custom-color-3 u-table-cell">{{student.name}}</td>
               <td class="u-border-1 u-border-custom-color-3 u-table-cell">Description</td>
               <td class="u-border-1 u-border-custom-color-3 u-table-cell">Description</td>
               <td class="u-border-1 u-border-custom-color-3 u-table-cell"></td>

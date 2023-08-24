@@ -141,12 +141,15 @@ def view_students():
 
 
 @app.route('/add-student', methods=['GET', 'POST'])
+@login_required
 def add_student():
     form = AddStudent()
     if form.validate_on_submit():
         password = bcrypt.generate_password_hash(form.password.data)
         student = Students(name=form.name.data, student_id=form.student_id.data, password=password, form=form.form.data)
+        user = Students(name=form.name.data, student_id=form.student_id.data, form=form.form.data)
         db.session.add(student)
+        db.session.add(user)
         db.session.commit()
         flash('Student Added Successfully', 'success')
         return redirect(url_for('profile'))
@@ -164,3 +167,13 @@ def add_book():
         flash('Book added successfully', 'success')
         return redirect(url_for('profile'))
     return render_template('add-book.html', form=form, title='Add Book')
+
+
+@app.route('/logout-student/<student_id>')
+@login_required
+def logout_student(student_id):
+    student = Users.query.filter_by(student_id=student_id, active=True).first()
+    if not student:
+        flash('Active Student Not Available', 'info')
+    student.exit_time = datetime.utcnow()
+    student.active = False
