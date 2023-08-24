@@ -20,7 +20,6 @@ class BorrowBook(FlaskForm):
 
 class ReturnBook(FlaskForm):
     student_id = StringField('Student ID', validators=[DataRequired()])
-    title = StringField("Book's Title", validators=[DataRequired()])
     serial_no = StringField("Book's Serial No.", validators=[DataRequired()])
     submit = SubmitField('Submit')
 

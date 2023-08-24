@@ -35,6 +35,8 @@ def logout():
 
 @app.route('/', methods=['POST', 'GET'])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for('profile'))
     form = LoginForm()
     if form.validate_on_submit():
       
@@ -56,19 +58,19 @@ def login():
 
 
 @app.route('/profile', methods=['GET', 'POST'])
-# @login_required
+@login_required
 def profile():
     return render_template('profile.html', title='Profile')
 
 
 
 @app.route('/borrow-book', methods=['GET', 'POST'])
-# @login_required
+@login_required
 def borrow_book():
     form = BorrowBook()
-    
+
     if form.validate_on_submit():
-        book = Library.query.filter_by(serial_no = form.serial_no.data, status='Available').first()
+        book = Library.query.filter_by(serial_no=form.serial_no.data, status='Available').first()
         if book:
             book.status = 'Borrowed'
             student = Students.query.filter_by(student_id=form.student_id.data).first()
@@ -76,31 +78,31 @@ def borrow_book():
                 flash('Invalid Student ID', 'warning')
                 return render_template('borrow_book.html', title='Borrow Book', form=form)
             borrow_book = Borrow(title=form.title.data, serial_no=form.serial_no.data, borrowed_by=form.student_id.data, status='Borrowed', student_name=student.name)
-            
-            db.session.add(borrow_book)
 
+            db.session.add(borrow_book)
             db.session.commit()
             flash('Success', 'success')
             return redirect(url_for('profile'))
         else:
-            flash("Book is Unavailable or Wrong Serial No.", 'warning')
-            return render_template('borrow_book.html', title='Borrow Book', form=form)
-        # return f"{form.title.data} {form.serial_no.data} {form.student_id.data}"
+            flash('Book is Unavailable or Wrong Serial No.', 'warning')
+            return f'{form.serial_no.data}, {form.student_id.data}, {form.title.data}'
+            # return render_template('borrow_book.html', title='Borrow Book', form=form)
     return render_template('borrow_book.html', title='Borrow Book', form=form)
 
 
 
 @app.route('/return-book', methods=['GET', 'POST'])
-# @login_required
+@login_required
 def return_book():
     form = ReturnBook()
+    print(form.serial_no.data, form.student_id.data)
 
     if form.validate_on_submit():
-        book = Borrow.query.filter_by(serial_no=form.seral_no.data, borrowed_by=form.student_id.data, status='Borrowed').first()
+        book = Borrow.query.filter_by(serial_no=form.serial_no.data, borrowed_by=form.student_id.data, status='Borrowed').first()
         if book:
             book.status = 'Returned'
-            book.returned_date = datetime.utcnow
-            bk = Library.query.filter_by(serial_no=form.serial_no.data).frist()
+            book.returned_date = datetime.utcnow()
+            bk = Library.query.filter_by(serial_no=form.serial_no.data).first()
             bk.status = 'Available'
 
             db.session.commit()
@@ -115,7 +117,7 @@ def return_book():
 
 
 @app.route('/view-borrowed-books', methods=['GET', 'POST'])
-# @login_required
+@login_required
 def view_borrowed_books():
     form = Search()
     books = Borrow.query.all()
@@ -126,6 +128,7 @@ def view_borrowed_books():
 
 
 @app.route('/view-students', methods=['GET', 'POST'])
+@login_required
 def view_students():
     students = Students.query.all() 
     form = Search()
@@ -145,7 +148,7 @@ def add_student():
         student = Students(name=form.name.data, student_id=form.student_id.data, password=password, form=form.form.data)
         db.session.add(student)
         db.session.commit()
-        flash('Student Added Successfully')
+        flash('Student Added Successfully', 'success')
         return redirect(url_for('profile'))
     return render_template('add-student.html', form=form, title='Add Student')
 
