@@ -23,8 +23,8 @@ class ReturnBook(FlaskForm):
     serial_no = StringField("Book's Serial No.", validators=[DataRequired()])
     submit = SubmitField('Submit')
 
-class Search(FlaskForm):
-    search = StringField('Search', validators=[DataRequired()])
+class LoginStudent(FlaskForm):
+    student_id = StringField('Login Student', validators=[DataRequired(), Length(min=8, max=10)])
     submit = SubmitField('submit')
 
 

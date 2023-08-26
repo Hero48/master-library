@@ -13,7 +13,7 @@ rel="stylesheet"
 <section class="u-clearfix u-grey-5 u-section-1" id="sec-34de">
     <div class="u-clearfix u-sheet u-sheet-1">
       <h3 class="u-text u-text-custom-color-1 u-text-default u-text-1">
-        Profile
+Dashboard
       </h3>
       <div
         class="u-align-center u-border-2 u-border-white u-container-style u-custom-color-1 u-expanded-width-xs u-group u-radius-10 u-shape-round u-group-1"
@@ -24,17 +24,17 @@ rel="stylesheet"
             class="u-border-13 u-border-white u-image u-image-circle u-image-1"
             data-image-height="920"
             data-image-width="1380"
-            src="{{ url_for('static', filename='images/barber.jpg') }}"
+            src="{{ url_for('static', filename='images/images.png') }}"
           />
           <h4 class="u-align-left u-text u-text-default u-text-2">
-            Spykvng Hero
+            {{current_user.name}}
           </h4>
           <h4 class="u-align-right u-text u-text-default u-text-3">
-            200047001
+            {{current_user.student_id}}
           </h4>
           <h4 class="u-align-right u-text u-text-default u-text-4">476</h4>
           <h4 class="u-align-left u-text u-text-default u-text-5">
-            Borrored books
+            Borrowed books
           </h4>
           <h4 class="u-align-left u-text u-text-default u-text-6">
             Total books

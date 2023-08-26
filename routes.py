@@ -177,3 +177,30 @@ def logout_student(student_id):
         flash('Active Student Not Available', 'info')
     student.exit_time = datetime.utcnow()
     student.active = False
+    db.session.commit()
+    return redirect(url_for('active_students'))
+
+
+@app.route('/active-students')
+@login_required
+def active_students():
+    students = Users.query.filter_by(active=True).all()
+    return render_template('active_students.html', title='Active Students', students=students)
+
+@app.route('/login-student', methods=['GET', 'POST'])
+@login_required
+def login_student():
+    form = LoginStudent()
+
+    if form.validate_on_submit():
+        student = Students.query.filter_by(student_id=form.student_id.data).first()
+        if not student:
+            flash('Invalid student id', 'warning')
+            return redirect(url_for('login_student'))
+        user = Users(name=student.name, student_id=student.student_id, form=student.form, active=True)
+        db.session.add(user)
+        db.session.commit()
+        flash('Student Logged in successfully', 'success')
+        return redirect(url_for('login_student'))
+
+    return render_template('login-student.html', form=form, title="Login Students")
