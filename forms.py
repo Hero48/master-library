@@ -24,6 +24,9 @@ class ReturnBook(FlaskForm):
     submit = SubmitField('Submit')
 
 class LoginStudent(FlaskForm):
+    student_id = StringField('Login Student', validators=[DataRequired(), Length(min=1, max=10)])
+    submit = SubmitField('submit')
+class Search(FlaskForm):
     student_id = StringField('Login Student', validators=[DataRequired(), Length(min=8, max=10)])
     submit = SubmitField('submit')
 

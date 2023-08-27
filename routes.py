@@ -36,7 +36,7 @@ def logout():
 @app.route('/', methods=['POST', 'GET'])
 def login():
     if current_user.is_authenticated:
-        return redirect(url_for('profile'))
+        return redirect(url_for('login_student'))
     form = LoginForm()
     if form.validate_on_submit():
       
@@ -60,7 +60,7 @@ def login():
 @app.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
-    return render_template('profile.html', title='Profile')
+    return render_template('profile.html', title='Dashboard')
 
 
 
@@ -127,29 +127,29 @@ def view_borrowed_books():
     return render_template('view-table.html', title='View Borrowed Books', form=form, books=books)
 
 
-@app.route('/view-students', methods=['GET', 'POST'])
-@login_required
-def view_students():
-    students = Students.query.all() 
-    form = Search()
-    if form.validate_on_submit():
-        students = Students.query.filter_by(student_id=form.search.data).all()
+# @app.route('/view-students', methods=['GET', 'POST'])
+# @login_required
+# def view_students():
+#     form = Search()
+#     students = Students.query.all() 
+#     if form.validate_on_submit():
+#         students = Students.query.filter_by(student_id=form.search.data).all()
 
-        return render_template('view-students.html', form=form, students=students)
-    return render_template('view-students.html', form=form, students=students)
-
+#         return render_template('view-students.html', form=form, students=students)
+#     return render_template('view-students.html', form=form, students=students)
+ 
 
 
 @app.route('/add-student', methods=['GET', 'POST'])
-@login_required
+# @login_required
 def add_student():
     form = AddStudent()
     if form.validate_on_submit():
+        print('\n \n')
+        print(form.password.data)
         password = bcrypt.generate_password_hash(form.password.data)
         student = Students(name=form.name.data, student_id=form.student_id.data, password=password, form=form.form.data)
-        user = Students(name=form.name.data, student_id=form.student_id.data, form=form.form.data)
         db.session.add(student)
-        db.session.add(user)
         db.session.commit()
         flash('Student Added Successfully', 'success')
         return redirect(url_for('profile'))
@@ -176,8 +176,14 @@ def logout_student(student_id):
     if not student:
         flash('Active Student Not Available', 'info')
     student.exit_time = datetime.utcnow()
+    exit_time_str = student.exit_time.strftime("%Y-%m-%d %H:%M:%S.%f")
+    exit_time = datetime.strptime(exit_time_str, "%Y-%m-%d %H:%M:%S.%f")
+    entry_time = datetime.strptime(student.entry_time, "%Y-%m-%d %H:%M:%S.%f")
+    total_hours = (exit_time - entry_time).total_seconds() / 3600
     student.active = False
+    student.total_hours = total_hours
     db.session.commit()
+    flash(f'Successfully logged out {student.name}: {student.student_id}', 'success')
     return redirect(url_for('active_students'))
 
 
@@ -196,6 +202,10 @@ def login_student():
         student = Students.query.filter_by(student_id=form.student_id.data).first()
         if not student:
             flash('Invalid student id', 'warning')
+            return redirect(url_for('login_student'))
+        user = Users.query.filter_by(student_id=form.student_id.data, active=True).first()
+        if user :
+            flash('Student is already logged in', 'warning')
             return redirect(url_for('login_student'))
         user = Users(name=student.name, student_id=student.student_id, form=student.form, active=True)
         db.session.add(user)

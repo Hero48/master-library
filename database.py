@@ -25,12 +25,12 @@ class Students(UserMixin, db.Model):
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), unique=False, nullable=True)
-    student_id = db.Column(db.String(20), unique=True, nullable=False)
+    student_id = db.Column(db.String(20), unique=False, nullable=False)
     form = db.Column(db.String(20), unique=False, nullable=False)
     active = db.Column(db.String(60), unique=False, nullable=False)
     entry_time = db.Column(db.String(20), unique=False, nullable=False, default=datetime.utcnow())
     exit_time = db.Column(db.String(20), unique=False, nullable=True)
-    total_hour = db.Column(db.Integer, unique=False, nullable=True)
+    total_hours = db.Column(db.Integer, unique=False, nullable=True)
     
     def __repr__(self):
         return '<Student %r>' % self.name
@@ -40,7 +40,6 @@ class Library(db.Model):
     title = db.Column(db.String(60), unique=False, nullable=False)
     serial_no = db.Column(db.String(60), unique=True, nullable=False)
     status = db.Column(db.String(60), unique=False, nullable=False, default='Available')
-    
     date = db.Column(db.String(20), unique=False, nullable=False, default=datetime.utcnow())
     
     def __repr__(self):
