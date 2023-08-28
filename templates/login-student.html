@@ -1,75 +1,73 @@
-{% extends 'base.html' %}
-{% block head %}
+{% extends 'base.html' %} {% block head %}
 <link
-href="{{ url_for('static', filename='Home.css') }}"
-media="screen"
-rel="stylesheet"
+  href="{{ url_for('static', filename='Home.css') }}"
+  media="screen"
+  rel="stylesheet"
 />
 
-{% endblock %}
-
-
-{% block content %}
-    <section
-      class="u-clearfix u-image u-image-contain u-shading u-section-1"
-      data-image-height="267"
-      data-image-width="189"
-      id="sec-1eda"
+{% endblock %} {% block content %}
+<section
+  class="u-clearfix u-image u-image-contain u-shading u-section-1"
+  data-image-height="267"
+  data-image-width="189"
+  id="sec-1eda"
+>
+  <div class="u-clearfix u-sheet u-sheet-1">
+    <h3 class="u-text u-text-custom-color-1 u-text-default u-text-1">
+      Log In Student
+    </h3>
+    <div
+      class="u-align-center-lg u-align-center-md u-align-center-sm u-align-center-xs u-border-2 u-border-custom-color-1 u-form u-radius-17 u-form-1"
     >
-      <div class="u-clearfix u-sheet u-sheet-1">
-        <h3 class="u-text u-text-custom-color-1 u-text-default u-text-1">
-          Log In Student
-        </h3>
-        <div
-          class="u-align-center-lg u-align-center-md u-align-center-sm u-align-center-xs u-border-2 u-border-custom-color-1 u-form u-radius-17 u-form-1"
-        >
-          <form
-            action="#"
-            class="u-clearfix u-form-custom-backend u-form-spacing-50 u-form-vertical u-inner-form"
-            method="POST"
-            name="form"
-            redirect="true"
-            source="custom"
-            style="padding: 30px"
-          >
-            <div class="u-form-group u-form-name u-label-none">
-              <label class="u-label u-text-custom-color-1" for="name-eebb">
-                Student ID
-              </label>
-              {{ form.student_id(required=True, id="unique_id",
-              class_="u-border-custom-color-1 u-input u-input-rectangle u-none
-              u-radius-13 u-text-custom-color-1 u-input-1", placeholder='Student ID') }}
-            </div>
-            <div class="u-align-left u-form-group u-form-submit u-label-none">
-              <a
-                class="u-btn u-btn-round u-btn-submit u-button-style u-custom-color-1 u-hover-palette-1-dark-1 u-radius-9 u-btn-1"
-                href="/"
-              >
-                <span class="u-icon">
-                  <svg
-                    class="u-svg-content"
-                    style="width: 1em; height: 1em"
-                    viewbox="0 0 512 512"
-                    x="0px"
-                    y="0px"
-                  >
-                    <path
-                      d="m19.98,200.65909l180.67121,0l55.82879,-171.63684l55.82883,171.63684l180.67118,0l-146.16581,106.07619l55.83168,171.63684l-146.16587,-106.07908l-146.16584,106.07908l55.8317,-171.63684l-146.16586,-106.07619z"
-                    ></path>
-                  </svg>
-                </span>
-                Submit
-              </a>
-              <input
-                class="u-form-control-hidden"
-                type="submit"
-                value="submit"
-              />
-            </div>
-            {{ form.csrf_token }}
-          </form>
+      <form
+        action="#"
+        class="u-clearfix u-form-custom-backend u-form-spacing-50 u-form-vertical u-inner-form"
+        method="POST"
+        name="form"
+        redirect="true"
+        source="custom"
+        style="padding: 30px"
+      >
+        <div class="u-form-group u-form-name u-label-none">
+          <label class="u-label u-text-custom-color-1" for="name-eebb">
+            Student ID
+          </label>
+          {{ form.student_id(required=True, id="unique_id",
+          class_="u-border-custom-color-1 u-input u-input-rectangle u-none
+          u-radius-13 u-text-custom-color-1 u-input-1", placeholder='Student ID') }}
+          <div class="invalid-feedback">
+            {% for error in form.student_id.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
         </div>
-      </div>
-    </section>
-   
+
+        <div class="u-align-left u-form-group u-form-submit u-label-none">
+          <a
+            class="u-btn u-btn-round u-btn-submit u-button-style u-custom-color-1 u-hover-palette-1-dark-1 u-radius-9 u-btn-1"
+            href="/"
+          >
+            <span class="u-icon">
+              <svg
+                class="u-svg-content"
+                style="width: 1em; height: 1em"
+                viewbox="0 0 512 512"
+                x="0px"
+                y="0px"
+              >
+                <path
+                  d="m19.98,200.65909l180.67121,0l55.82879,-171.63684l55.82883,171.63684l180.67118,0l-146.16581,106.07619l55.83168,171.63684l-146.16587,-106.07908l-146.16584,106.07908l55.8317,-171.63684l-146.16586,-106.07619z"
+                ></path>
+              </svg>
+            </span>
+            Submit
+          </a>
+          <input class="u-form-control-hidden" type="submit" value="submit" />
+        </div>
+        {{ form.csrf_token }}
+      </form>
+    </div>
+  </div>
+</section>
+
 {% endblock %}

@@ -18,7 +18,7 @@ class Students(UserMixin, db.Model):
     name = db.Column(db.String(30), unique=False, nullable=True)
     student_id = db.Column(db.String(20), unique=True, nullable=False)
     form = db.Column(db.String(20), unique=False, nullable=False)
-    password = db.Column(db.String(60), unique=False, nullable=False)
+    password = db.Column(db.String(60), unique=False, nullable=True)
     
     def __repr__(self):
         return '<Student %r>' % self.name
@@ -48,7 +48,7 @@ class Library(db.Model):
 class Borrow(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(60), unique=False, nullable=False)
-    serial_no = db.Column(db.String(60), unique=True, nullable=False)
+    serial_no = db.Column(db.String(60), unique=False, nullable=False)
     status = db.Column(db.String(60), unique=False, nullable=False)
     borrowed_by = db.Column(db.String(60), unique=False, nullable=False)
     student_name = db.Column(db.String(60), unique=False, nullable=False)

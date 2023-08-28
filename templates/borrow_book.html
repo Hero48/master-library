@@ -40,6 +40,11 @@ rel="stylesheet"
               {{ form.student_id(required=True, id="stutdent_id",
               class_="u-border-2 u-border-custom-color-1 u-input
               u-input-rectangle u-radius-7 u-text-custom-color-1", placeholder="Enter Student ID ") }}
+              <div class="invalid-feedback">
+                {% for error in form.student_id.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+              </div>
             </div>
             <div class="u-form-group">
               <label
@@ -51,6 +56,11 @@ rel="stylesheet"
               {{ form.title(required=True, id="book_title",
               class_="u-border-2 u-border-custom-color-1 u-input
               u-input-rectangle u-radius-7 u-text-custom-color-1", placeholder="Enter Book's Title") }}
+              <div class="invalid-feedback">
+                {% for error in form.title.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+              </div>
             </div>
             <div class="u-form-group u-form-group-3">
               <label
@@ -62,6 +72,11 @@ rel="stylesheet"
               {{ form.serial_no(required=True, id="text", class_="u-border-2
               u-border-custom-color-1 u-input u-input-rectangle u-radius-7
               u-text-custom-color-1", placeholder="Enter Book's Serial No.") }}
+              <div class="invalid-feedback">
+                {% for error in form.serial_no.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+              </div>
             </div>
             <div class="u-align-center u-form-group u-form-submit">
               <a

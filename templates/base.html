@@ -114,20 +114,14 @@
                   >Dashboard</a
                 >
               </li>
+             
+              
               <li class="u-nav-item">
                 <a
                   class="u-button-style u-nav-link u-text-active-palette-3-base u-text-hover-palette-2-base"
-                  href="{{url_for('add_student')}}"
+                  href="{{url_for('active_students')}}"
                   style="padding: 10px 20px"
-                  >Add Student</a
-                >
-              </li>
-              <li class="u-nav-item">
-                <a
-                  class="u-button-style u-nav-link u-text-active-palette-3-base u-text-hover-palette-2-base"
-                  href="{{url_for('add_book')}}"
-                  style="padding: 10px 20px"
-                  >Add Book</a
+                  >Active Students</a
                 >
               </li>
               <li class="u-nav-item">
@@ -151,12 +145,34 @@
                   class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2"
                 >
                   <li class="u-nav-item">
-                    <a class="u-button-style u-nav-link" href="Home.html"
+                    <a
+                      class="u-button-style u-nav-link"
+                      href="{{url_for('login')}}"
                       >Home</a
                     >
                   </li>
+                  
                   <li class="u-nav-item">
-                    <a class="u-button-style u-nav-link" href="#">Contact</a>
+                    <a
+                      class="u-button-style u-nav-link"
+                      href="{{url_for('profile')}}"
+                      >Dashboard</a
+                    >
+                  </li>
+                 
+                  <li class="u-nav-item">
+                    <a
+                      class="u-button-style u-nav-link"
+                      href="{{url_for('active_students')}}"
+                      >Active Students</a
+                    >
+                  </li>
+                  <li class="u-nav-item">
+                    <a
+                      class="u-button-style u-nav-link"
+                      href="{{url_for('logout')}}"
+                      >Logout</a
+                    >
                   </li>
                 </ul>
               </div>
@@ -196,6 +212,7 @@
           <br />
           Post Office Box 65
         </p>
+        <!-- HerozTech | https://heroztech.top -->
       </div>
     </footer>
   </body>

@@ -39,6 +39,11 @@ rel="stylesheet"
               {{ form.student_id(required=True, id="unique_id",
               class_="u-border-custom-color-1 u-input u-input-rectangle u-none
               u-radius-13 u-text-custom-color-1 u-input-1", placeholder='Student ID') }}
+              <div class="invalid-feedback">
+                {% for error in form.student_id.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+              </div>
             </div>
             <div class="u-form-group u-label-none">
               <label class="u-label u-text-custom-color-1" for="email-eebb">
@@ -47,6 +52,11 @@ rel="stylesheet"
               {{ form.password(required=True, id="password",
               class_="u-border-custom-color-1 u-input u-input-rectangle u-none
               u-radius-13 u-text-custom-color-1 u-input-2", placeholder='Password', type='password') }}
+              <div class="invalid-feedback">
+                {% for error in form.password.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+              </div>
             </div>
             <div class="u-align-left u-form-group u-form-submit u-label-none">
               <a

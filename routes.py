@@ -41,6 +41,9 @@ def login():
     if form.validate_on_submit():
       
         user = Students.query.filter_by(student_id=form.student_id.data).first()
+        if user.password == None:
+            flash('Invalid student id or password', 'warning')
+            return redirect(url_for('login'))
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=True)
             next_page = request.args.get('next')
@@ -57,10 +60,17 @@ def login():
 
 
 
-@app.route('/profile', methods=['GET', 'POST'])
+@app.route('/dashboard', methods=['GET', 'POST'])
 @login_required
 def profile():
-    return render_template('profile.html', title='Dashboard')
+    total_borrowed_books = Borrow.query.count()
+    total_students = Students.query.count()
+    total_books = Library.query.count()
+    return render_template('profile.html', 
+                           title='Dashboard', 
+                           total_borrowed_books=total_borrowed_books, 
+                           total_students=total_students, 
+                           total_books=total_books)
 
 
 
@@ -85,8 +95,7 @@ def borrow_book():
             return redirect(url_for('profile'))
         else:
             flash('Book is Unavailable or Wrong Serial No.', 'warning')
-            return f'{form.serial_no.data}, {form.student_id.data}, {form.title.data}'
-            # return render_template('borrow_book.html', title='Borrow Book', form=form)
+            return render_template('borrow_book.html', title='Borrow Book', form=form)
     return render_template('borrow_book.html', title='Borrow Book', form=form)
 
 
@@ -145,14 +154,19 @@ def view_borrowed_books():
 def add_student():
     form = AddStudent()
     if form.validate_on_submit():
-        print('\n \n')
-        print(form.password.data)
-        password = bcrypt.generate_password_hash(form.password.data)
-        student = Students(name=form.name.data, student_id=form.student_id.data, password=password, form=form.form.data)
-        db.session.add(student)
-        db.session.commit()
-        flash('Student Added Successfully', 'success')
-        return redirect(url_for('profile'))
+        if form.password.data:
+            password = bcrypt.generate_password_hash(form.password.data)
+            student = Students(name=form.name.data, student_id=form.student_id.data, password=password, form=form.form.data)
+            db.session.add(student)
+            db.session.commit()
+            flash('Student Added Successfully', 'success')
+            return redirect(url_for('profile'))
+        else:
+            student = Students(name=form.name.data, student_id=form.student_id.data, form=form.form.data)
+            db.session.add(student)
+            db.session.commit()
+            flash('Student Added Successfully', 'success')
+            return redirect(url_for('profile'))
     return render_template('add-student.html', form=form, title='Add Student')
 
 @app.route('/add-book', methods=['GET', 'POST'])
