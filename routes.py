@@ -74,6 +74,18 @@ def profile():
 
 
 
+
+@app.route("/view-report", methods=["GET", "POST"])
+@login_required
+def view_report():
+    form = ViewReport()
+    if form.validate_on_submit():
+        return f"<h2>start date : {form.start_date.data} \n Stop date : {form.end_date.data}</h2>"
+        
+        # TODO: Add functionality
+    return render_template('view-report.html', form=form, title="View Report")
+
+
 @app.route('/borrow-book', methods=['GET', 'POST'])
 @login_required
 def borrow_book():

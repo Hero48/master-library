@@ -1,6 +1,6 @@
 from app import app
 from  flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, SelectField, TextAreaField
+from wtforms import StringField, SubmitField, SelectField, TextAreaField, DateField
 from wtforms.validators import DataRequired, equal_to, Length
 
 
@@ -43,3 +43,9 @@ class AddBook(FlaskForm):
     book_title = StringField('Book Title', validators=[DataRequired(), Length( min=4, max=20)])
     
     submit = SubmitField('Add Book')
+
+
+class ViewReport(FlaskForm):
+    start_date = DateField("Choose Start Date", validators=[DataRequired()])
+    end_date = DateField("Choose End Date", validators=[DataRequired()])
+    submit = SubmitField('Submit')
