@@ -4,6 +4,7 @@ from flask_login import login_user, logout_user, login_required, LoginManager, c
 from flask_bcrypt import Bcrypt
 from database import *
 from forms import *
+from sqlalchemy import func
 
 
 
@@ -80,9 +81,24 @@ def profile():
 def view_report():
     form = ViewReport()
     if form.validate_on_submit():
-        return f"<h2>start date : {form.start_date.data} \n Stop date : {form.end_date.data}</h2>"
+        start_date=form.start_date.data
+        end_date=form.end_date.data
+        result = Users.query.filter(Users.entry_time.between(form.start_date.data, form.end_date.data)).all()
         
-        # TODO: Add functionality
+        total_books_available = Library.query.filter_by(status='Available').count()
+        total_borrowed_books = Borrow.query.filter(Borrow.borrowed_date.between(start_date, end_date)).count()
+        total_returned_books = Borrow.query.filter(Borrow.returned_date.between(start_date, end_date)).count()
+        total_active_students = Users.query.filter(Users.entry_time.between(start_date, end_date)).distinct(Users.student_id).count()
+        total_hours_spent = db.session.query(func.sum(Users.total_hours)).filter(Users.exit_time.between(start_date, end_date)).scalar()
+
+        return render_template("report-table.html", 
+                               start_date=form.start_date.data, 
+                               end_date=form.end_date.data, 
+                               total_books_available=total_books_available,
+                               total_borrowed_books=total_borrowed_books,
+                               total_returned_books=total_returned_books,
+                               total_active_students=total_active_students,
+                               total_hours_spent=total_hours_spent)
     return render_template('view-report.html', form=form, title="View Report")
 
 
