@@ -34,11 +34,11 @@ rel="stylesheet"
           >
             <div class="u-form-group u-form-name u-label-none">
               <label class="u-label u-text-custom-color-1" for="name-eebb">
-                Student ID
+                Admin ID
               </label>
               {{ form.student_id(required=True, id="unique_id",
               class_="u-border-custom-color-1 u-input u-input-rectangle u-none
-              u-radius-13 u-text-custom-color-1 u-input-1", placeholder='Student ID') }}
+              u-radius-13 u-text-custom-color-1 u-input-1", placeholder='Enter Admin ID') }}
               <div class="invalid-feedback">
                 {% for error in form.student_id.errors %}
                 <span>{{ error }}</span>
