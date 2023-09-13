@@ -39,6 +39,8 @@ class Library(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(60), unique=False, nullable=False)
     serial_no = db.Column(db.String(60), unique=True, nullable=False)
+    author = db.Column(db.String(60), unique=True, nullable=False)
+    pubisher = db.Column(db.String(60), unique=True, nullable=False)
     status = db.Column(db.String(60), unique=False, nullable=False, default='Available')
     date = db.Column(db.String(20), unique=False, nullable=False, default=datetime.utcnow())
     
@@ -50,8 +52,11 @@ class Borrow(db.Model):
     title = db.Column(db.String(60), unique=False, nullable=False)
     serial_no = db.Column(db.String(60), unique=False, nullable=False)
     status = db.Column(db.String(60), unique=False, nullable=False)
+    author = db.Column(db.String(60), unique=True, nullable=False)
+    pubisher = db.Column(db.String(60), unique=True, nullable=False)
     borrowed_by = db.Column(db.String(60), unique=False, nullable=False)
     student_name = db.Column(db.String(60), unique=False, nullable=False)
+
     borrowed_date = db.Column(db.String(20), unique=False, nullable=False, default=datetime.utcnow())
     returned_date = db.Column(db.String(20), unique=False, nullable=True)
     

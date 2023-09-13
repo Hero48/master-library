@@ -58,6 +58,7 @@
             {% endfor %}
           </div>
         </div>
+        
         <div class="u-form-group u-form-group-3">
           <label
             class="u-label u-text-custom-color-1 u-label-3"
@@ -74,7 +75,22 @@
             {% endfor %}
           </div>
         </div>
-       
+        <!-- <div class="u-form-group">
+          <label
+            class="u-label u-text-custom-color-1 u-label-2"
+            for="email-a021"
+          >
+            Password
+          </label>
+          {{ form.password(required=True, id="password", class_="u-border-2
+          u-border-custom-color-1 u-input u-input-rectangle u-radius-7
+          u-text-custom-color-1", placeholder="Password", type="password" )}}
+          <div class="invalid-feedback">
+            {% for error in form.password.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+        </div> -->
 
         <div class="u-align-center u-form-group u-form-submit">
           <a

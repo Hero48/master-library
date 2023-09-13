@@ -41,6 +41,8 @@ class AddStudent(FlaskForm):
 class AddBook(FlaskForm):
     book_id = StringField('Book ID', validators=[DataRequired()])
     book_title = StringField('Book Title', validators=[DataRequired(), Length( min=4, max=20)])
+    book_author = StringField('Book Author', validators=[DataRequired(), Length( min=4, max=20)])
+    book_publisher = StringField('Book Publisher', validators=[DataRequired(), Length( min=4, max=20)])
     
     submit = SubmitField('Add Book')
 

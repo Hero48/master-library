@@ -109,21 +109,34 @@ def borrow_book():
 
     if form.validate_on_submit():
         book = Library.query.filter_by(serial_no=form.serial_no.data, status='Available').first()
+        
         if book:
             book.status = 'Borrowed'
             student = Students.query.filter_by(student_id=form.student_id.data).first()
+            
             if not student:
                 flash('Invalid Student ID', 'warning')
                 return render_template('borrow_book.html', title='Borrow Book', form=form)
-            borrow_book = Borrow(title=form.title.data, serial_no=form.serial_no.data, borrowed_by=form.student_id.data, status='Borrowed', student_name=student.name)
-
+            
+            borrow_book = Borrow(
+                title=form.title.data, 
+                serial_no=form.serial_no.data, 
+                borrowed_by=form.student_id.data, 
+                status='Borrowed', 
+                student_name=student.name,
+                author=book.author,
+                pubisher=book.pubisher,
+            )
+            
             db.session.add(borrow_book)
             db.session.commit()
             flash('Success', 'success')
             return redirect(url_for('profile'))
+        
         else:
             flash('Book is Unavailable or Wrong Serial No.', 'warning')
             return render_template('borrow_book.html', title='Borrow Book', form=form)
+    
     return render_template('borrow_book.html', title='Borrow Book', form=form)
 
 
@@ -178,7 +191,7 @@ def view_borrowed_books():
 
 
 @app.route('/add-student', methods=['GET', 'POST'])
-# @login_required
+@login_required
 def add_student():
     form = AddStudent()
     if form.validate_on_submit():
@@ -202,7 +215,7 @@ def add_student():
 def add_book():
     form = AddBook()
     if form.validate_on_submit():
-        book = Library(title=form.book_title.data, serial_no=form.book_id.data)
+        book = Library(title=form.book_title.data, serial_no=form.book_id.data, author=form.book_author.data, publisher=form.book_publisher.data)
         db.session.add(book)
         db.session.commit()
 
