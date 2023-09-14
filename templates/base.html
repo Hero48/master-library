@@ -7,7 +7,7 @@
     <title>{{title}}</title>
     <link
       href="{{ url_for('static', filename='nicepage.css') }}"
-      media="screen"
+      media="all"
       rel="stylesheet"
     />
 
@@ -15,7 +15,12 @@
 
     <link
       href="{{ url_for('static', filename='add-student.css') }}"
-      media="screen"
+      media="all"
+      rel="stylesheet"
+    />
+    <link
+      href="{{ url_for('static', filename='print.css') }}"
+      media="print"
       rel="stylesheet"
     />
 
