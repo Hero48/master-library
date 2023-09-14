@@ -195,20 +195,27 @@ def view_borrowed_books():
 def add_student():
     form = AddStudent()
     if form.validate_on_submit():
-        if form.password.data:
-            password = bcrypt.generate_password_hash(form.password.data)
-            student = Students(name=form.name.data, student_id=form.student_id.data, password=password, form=form.form.data)
-            db.session.add(student)
-            db.session.commit()
-            flash('Student Added Successfully', 'success')
-            return redirect(url_for('profile'))
-        else:
-            student = Students(name=form.name.data, student_id=form.student_id.data, form=form.form.data)
-            db.session.add(student)
-            db.session.commit()
-            flash('Student Added Successfully', 'success')
-            return redirect(url_for('profile'))
+        
+        student = Students(name=form.name.data, student_id=form.student_id.data, form=form.form.data)
+        db.session.add(student)
+        db.session.commit()
+        flash('Student Added Successfully', 'success')
+        return redirect(url_for('profile'))
     return render_template('add-student.html', form=form, title='Add Student')
+
+@app.route('/register-admin', methods=['GET', 'POST'])
+# TODO: make it login required before deployment
+# @login_required
+def register_admin():
+    form = RegisterAdmin()
+    if form.validate_on_submit():
+        password = bcrypt.generate_password_hash(form.password.data)
+        admin = Students(name=form.name.data, student_id=form.student_id.data, password=password)
+        db.session.add(admin)
+        db.session.commit()
+        flash('Admin REgistered Successfully', 'success')
+        return redirect(url_for('profile'))
+    return render_template('register-admin.html', form=form, title='Register Admin')
 
 @app.route('/add-book', methods=['GET', 'POST'])
 @login_required

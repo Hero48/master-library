@@ -35,8 +35,14 @@ class AddStudent(FlaskForm):
     student_id = StringField('Student ID', validators=[DataRequired(), Length(min=8, max=10)])
     name = StringField('Student Name', validators=[DataRequired()])
     form = StringField('Student Form', validators=[DataRequired()])
-    password = StringField('Enter New Password ')
     submit = SubmitField('Add Sutdent')
+
+
+class RegisterAdmin(FlaskForm):
+    admin_id = StringField('Admin ID', validators=[DataRequired(), Length(min=8, max=10)])
+    name = StringField('Admin Name', validators=[DataRequired()])
+    password = StringField('Enter New Password ', validators=[DataRequired(), Length(min=4, max=20)])
+    submit = SubmitField('Register Admin')
 
 class AddBook(FlaskForm):
     book_id = StringField('Book ID', validators=[DataRequired()])
