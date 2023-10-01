@@ -42,9 +42,9 @@ def login():
     if form.validate_on_submit():
       
         user = Students.query.filter_by(student_id=form.student_id.data).first()
-        if user.password == None:
-            flash('Invalid student id or password', 'warning')
-            return redirect(url_for('login'))
+        # if user.password == None:
+        #     flash('Invalid student id or password', 'warning')
+        #     return redirect(url_for('login'))
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=True)
             next_page = request.args.get('next')
@@ -125,7 +125,7 @@ def borrow_book():
                 status='Borrowed', 
                 student_name=student.name,
                 author=book.author,
-                pubisher=book.pubisher,
+                publisher=book.publisher,
             )
             
             db.session.add(borrow_book)
@@ -210,10 +210,11 @@ def register_admin():
     form = RegisterAdmin()
     if form.validate_on_submit():
         password = bcrypt.generate_password_hash(form.password.data)
-        admin = Students(name=form.name.data, student_id=form.student_id.data, password=password)
+        admin = Students(name=form.name.data, student_id=form.admin_id.data, password=password)
         db.session.add(admin)
         db.session.commit()
-        flash('Admin REgistered Successfully', 'success')
+        print("\n here \n")
+        flash('Admin Registered Successfully', 'success')
         return redirect(url_for('profile'))
     return render_template('register-admin.html', form=form, title='Register Admin')
 
