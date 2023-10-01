@@ -84,7 +84,8 @@ def view_report():
         start_date=form.start_date.data
         end_date=form.end_date.data
         result = Users.query.filter(Users.entry_time.between(form.start_date.data, form.end_date.data)).all()
-        
+        # TODO: work on the values for the return books
+        # It is not displaying as it should
         total_books_available = Library.query.filter_by(status='Available').count()
         total_borrowed_books = Borrow.query.filter(Borrow.borrowed_date.between(start_date, end_date)).count()
         total_returned_books = Borrow.query.filter(Borrow.returned_date.between(start_date, end_date)).count()
