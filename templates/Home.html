@@ -17,27 +17,37 @@
     <div
       class="u-align-center u-border-2 u-border-custom-color-5 u-custom-color-2 u-form u-radius-6 u-form-1"
     >
-    <form action="#" class="u-clearfix u-form-spacing-35 u-form-vertical u-inner-form" method="POST" name="form" source="custom" style="padding: 50px">
-      <div class="u-form-group u-form-name u-label-none">
-       <label class="u-label" for="name-9a51">
-        Admin ID
-       </label>
-       {{ form.admin_id(required=True, id="admin_id", class_="u-border-custom-color-5 u-input u-input-rectangle") }}
-      </div>
-      <div class="u-form-group u-label-none">
-       <label class="u-label" for="email-9a51">
-        Password
-       </label>
-       {{ form.password(required=True, id="password", class_="u-border-custom-color-5 u-input u-input-rectangle") }}
-      </div>
-      <div class="u-align-center u-form-group u-form-submit u-label-none">
-       <a class="u-active-custom-color-3 u-border-none u-btn u-btn-submit u-button-style u-hover-custom-color-5 u-text-active-custom-color-3 u-text-hover-custom-color-4 u-btn-1" href="#">
-        Login
-       </a>
-       <input class="u-form-control-hidden" type="submit" value="submit"/>
-      </div>
-      {{ form.csrf_token }}
-     </form>
+      <form
+        action="{{url_for('login')}}"
+        class="u-clearfix u-form-spacing-35 u-form-vertical u-inner-form"
+        method="POST"
+        name="form"
+        source="custom"
+        style="padding: 50px"
+      >
+        <div class="u-form-group u-form-name u-label-none">
+          <label class="u-label" for="name-9a51"> Admin ID </label>
+          {{ form.admin_id(required=True, id="admin_id",
+          class_="u-border-custom-color-5 u-input u-input-rectangle",
+          placeholder="Admin ID") }}
+        </div>
+        <div class="u-form-group u-label-none">
+          <label class="u-label" for="email-9a51"> Password </label>
+          {{ form.password(required=True, id="password",
+          class_="u-border-custom-color-5 u-input u-input-rectangle",
+          placeholder="Admin Password") }}
+        </div>
+        <div class="u-align-center u-form-group u-form-submit u-label-none">
+          <a
+            class="u-active-custom-color-3 u-border-none u-btn u-btn-submit u-button-style u-hover-custom-color-5 u-text-active-custom-color-3 u-text-hover-custom-color-4 u-btn-1"
+            href="{{url_for('login')}}"
+          >
+            Login
+          </a>
+          <input class="u-form-control-hidden" type="submit" value="submit" />
+        </div>
+        {{ form.csrf_token }}
+      </form>
     </div>
   </div>
 </section>

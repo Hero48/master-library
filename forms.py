@@ -1,7 +1,7 @@
 from app import app
 from  flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField, TextAreaField, DateField
-from wtforms.validators import DataRequired, equal_to, Length
+from wtforms.validators import DataRequired, EqualTo, Length
 
 
 
@@ -42,6 +42,7 @@ class RegisterAdmin(FlaskForm):
     admin_id = StringField('Admin ID', validators=[DataRequired(), Length(min=8, max=10)])
     name = StringField('Admin Name', validators=[DataRequired()])
     password = StringField('Enter New Password ', validators=[DataRequired(), Length(min=4, max=20)])
+    confirm_password = StringField("Confrim Password", validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Register Admin')
 
 class AddBook(FlaskForm):

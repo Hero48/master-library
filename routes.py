@@ -180,16 +180,17 @@ def books_borrowed():
     return render_template('Books-borrowed.html', title='Books Borrowed', form=form, books=books)
 
 
-# @app.route('/view-students', methods=['GET', 'POST'])
-# @login_required
-# def view_students():
+# @app.route('/all-students', methods=['GET', 'POST'])
+# # @ TODO: make it login required before deployment
+# # @login_required
+# def all_students():
 #     form = Search()
 #     students = Students.query.all() 
 #     if form.validate_on_submit():
 #         students = Students.query.filter_by(student_id=form.search.data).all()
 
-#         return render_template('view-students.html', form=form, students=students)
-#     return render_template('view-students.html', form=form, students=students)
+#         return render_template('All-students.html', form=form, students=students)
+#     return render_template('All-students.html', form=form, students=students)
  
 
 
@@ -204,7 +205,7 @@ def add_student():
         db.session.commit()
         flash('Student Added Successfully', 'success')
         return redirect(url_for('profile'))
-    return render_template('add-student.html', form=form, title='Add Student')
+    return render_template('Register-student.html', form=form, title='Add Student')
 
 @app.route('/register-admin', methods=['GET', 'POST'])
 # TODO: make it login required before deployment
@@ -213,13 +214,13 @@ def register_admin():
     form = RegisterAdmin()
     if form.validate_on_submit():
         password = bcrypt.generate_password_hash(form.password.data)
-        admin = Students(name=form.name.data, student_id=form.admin_id.data, password=password)
+        admin = Admin(name=form.name.data, admin_id=form.admin_id.data, password=password)
         db.session.add(admin)
         db.session.commit()
         print("\n here \n")
         flash('Admin Registered Successfully', 'success')
         return redirect(url_for('profile'))
-    return render_template('register-admin.html', form=form, title='Register Admin')
+    return render_template('Register-admin.html', form=form, title='Register Admin')
 
 @app.route('/add-book', methods=['GET', 'POST'])
 # TODO: make it login required before deployment
@@ -255,10 +256,11 @@ def logout_student(student_id):
 
 
 @app.route('/active-students')
-@login_required
+# TODO: make it login required before deployment
+# @login_required
 def active_students():
     students = Users.query.filter_by(active=True).all()
-    return render_template('active_students.html', title='Active Students', students=students)
+    return render_template('Active-students.html', title='Active Students', students=students)
 
 @app.route('/login-student', methods=['GET', 'POST'])
 @login_required
