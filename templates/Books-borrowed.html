@@ -1,0 +1,82 @@
+{% extends 'Base.html' %} {% block head %}
+<link
+  href="{{ url_for('static', filename='Tables.css') }}"
+  media="screen"
+  rel="stylesheet"
+/>
+
+{% endblock %} {% block content %}
+
+<section class="u-clearfix u-section-1" id="sec-921f">
+    <div class="u-clearfix u-sheet u-sheet-1">
+      <h3 class="u-align-center u-text u-text-custom-color-1 u-text-default u-text-1">Books Borrowed</h3>
+      <p class="u-align-center u-text u-text-custom-color-3 u-text-default u-text-2">
+        <span class="u-text-custom-color-1">[</span> Books Borrowed : 625 <span class="u-text-custom-color-1">|</span> Books Returned : 452 <span class="u-text-custom-color-1">]</span>
+      </p>
+      <div class="custom-expanded u-table u-table-responsive u-table-1">
+        <table class="u-table-entity">
+          <colgroup>
+            <col width="16.3%">
+            <col width="12.3%">
+            <col width="16.9%">
+            <col width="13%">
+            <col width="15.1%">
+            <col width="12.1%">
+            <col width="14.299999999999997%">
+          </colgroup>
+          <thead class="u-custom-color-2 u-table-header u-text-custom-color-1 u-table-header-1">
+            <tr style="height: 47px;">
+              <th class="u-border-3 u-border-custom-color-5 u-table-cell u-table-cell-1">Name</th>
+              <th class="u-border-3 u-border-custom-color-5 u-table-cell u-table-cell-2">Student ID</th>
+              <th class="u-border-3 u-border-custom-color-5 u-table-cell u-table-cell-3">Book Title</th>
+              <th class="u-border-3 u-border-custom-color-5 u-table-cell u-table-cell-4">Book Serial No.</th>
+              <th class="u-border-3 u-border-custom-color-5 u-table-cell u-table-cell-5">Book Author</th>
+              <th class="u-border-3 u-border-custom-color-5 u-table-cell u-table-cell-6">Date Borrowed</th>
+              <th class="u-border-3 u-border-custom-color-5 u-table-cell u-table-cell-7">Date Returned</th>
+            </tr>
+          </thead>
+          <tbody class="u-table-body">
+            <tr style="height: 75px;">
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell u-table-cell-8">Row 1</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description<br>
+              </td>
+            </tr>
+            <tr style="height: 76px;">
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell u-table-cell-15">Row 2</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell u-table-cell-16">Description</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell u-table-cell-17">Description</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell u-table-cell-18">Description</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell"> Description</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
+            </tr>
+            <tr style="height: 63px;">
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell u-table-cell-22">Row 3</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
+            </tr>
+            <tr style="height: 76px;">
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell u-table-cell-29">Row 4</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="u-align-center u-text u-text-default u-text-3">&nbsp;&nbsp;</p>
+    </div>
+  </section>
+{% endblock %}

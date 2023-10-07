@@ -1,103 +1,71 @@
-{% extends 'base.html' %} {% block head %}
+{% extends 'Base.html' %} {% block head %}
 <link
-  href="{{ url_for('static', filename='add-student.css') }}"
+  href="{{ url_for('static', filename='Forms.css') }}"
   media="screen"
   rel="stylesheet"
 />
 
 {% endblock %} {% block content %}
-<section
-  class="u-border-2 u-border-grey-75 u-clearfix u-grey-5 u-section-1"
-  id="sec-4827"
->
+<section class="u-clearfix u-container-align-center u-section-3" id="sec-4690">
   <div class="u-clearfix u-sheet u-sheet-1">
     <h3
       class="u-align-center u-text u-text-custom-color-1 u-text-default u-text-1"
     >
-      Add Book
+      Add New Book
     </h3>
-    <div class="u-form u-radius-15 u-white u-form-1">
+    <div
+      class="u-align-center u-border-2 u-border-custom-color-5 u-custom-color-2 u-form u-radius-5 u-form-1"
+    >
       <form
-        action="{{ url_for('add_book') }}"
-        class="u-clearfix u-form-custom-backend u-form-spacing-37 u-form-vertical u-inner-form"
+        action="{{url_for('add_book')}}"
+        class="u-clearfix u-form-spacing-50 u-form-vertical u-inner-form"
         method="POST"
         name="form"
         redirect="true"
-        source="custom"
-        style="padding: 34px"
+        source="email"
+        style="padding: 32px"
       >
-        <div class="u-form-group u-form-name">
-          <label
-            class="u-label u-text-custom-color-1 u-label-1"
-            for="name-a021"
-          >
-            Book ID
-          </label>
-          {{ form.book_id(required=True, id="stutdent_id", class_="u-border-2
-          u-border-custom-color-1 u-input u-input-rectangle u-radius-7
-          u-text-custom-color-1", placeholder="Book ID") }}
+        <div class="u-form-group u-label-none">
+          <label class="u-label" for="email-146e"> Book Serial No. </label>
+          {{ form.book_id(required=True, id="book_serial_no",
+          class_="u-border-custom-color-5 u-input u-input-rectangle u-input-2",
+          placeholder="Book Serial No.") }}
         </div>
-        <div class="u-form-group">
-          <label
-            class="u-label u-text-custom-color-1 u-label-2"
-            for="email-a021"
-          >
-            Book Title
-          </label>
-          {{ form.book_title(required=True, id="student_name",
-          class_="u-border-2 u-border-custom-color-1 u-input u-input-rectangle
-          u-radius-7 u-text-custom-color-1", placeholder="Book Title") }}
+        <div class="u-form-group u-form-name u-label-none">
+          <label class="u-label" for="name-146e"> Book Title </label>
+          {{ form.book_title(required=True, id="book_title",
+          class_="u-border-custom-color-5 u-input u-input-rectangle u-input-1",
+          placeholder="Book Title") }}
         </div>
 
-
-        <div class="u-form-group">
-          <label
-            class="u-label u-text-custom-color-1 u-label-2"
-            for="email-a021"
-          >
-            Book Author
-          </label>
-          {{ form.book_author(required=True, id="student_name",
-          class_="u-border-2 u-border-custom-color-1 u-input u-input-rectangle
-          u-radius-7 u-text-custom-color-1", placeholder="Book Author") }}
+        <div class="u-form-group u-label-none">
+          <label class="u-label" for="message-146e"> Author </label>
+          {{ form.book_author(required=True, id="book_author",
+          class_="u-border-custom-color-5 u-input u-input-rectangle u-input-3",
+          placeholder="Book Author") }}
         </div>
-
-
-        <div class="u-form-group">
-          <label
-            class="u-label u-text-custom-color-1 u-label-2"
-            for="email-a021"
-          >
-            Book Publisher
-          </label>
-          {{ form.book_publisher(required=True, id="student_name",
-          class_="u-border-2 u-border-custom-color-1 u-input u-input-rectangle
-          u-radius-7 u-text-custom-color-1", placeholder="Book Publisher") }}
+        <div class="u-form-group u-label-none u-form-group-4">
+          <label class="u-label" for="text-6777"> Book Publisher </label>
+          {{ form.book_publisher(required=True, id="text",
+          class_="u-border-custom-color-5 u-input u-input-rectangle u-input-4",
+          placeholder="Book Publisher") }}
         </div>
-
-        <div class="u-align-center u-form-group u-form-submit">
+        <div class="u-form-group u-label-none u-form-group-5">
+          <label class="u-label" for="text-a129"> Date Published </label>
+          {{ form.date_published(required=True, id="date_published",
+          class_="u-border-custom-color-5 u-input u-input-rectangle u-input-5",
+          placeholder="Date Published") }}
+        </div>
+        <div class="u-align-center u-form-group u-form-submit u-label-none">
           <a
-            class="u-btn u-btn-round u-btn-submit u-button-style u-custom-color-1 u-hover-palette-1-dark-1 u-radius-15 u-btn-1"
-            href="{{ url_for('add_book') }}"
+            class="u-active-custom-color-3 u-border-none u-btn u-btn-submit u-button-style u-hover-custom-color-5"
+            href="{{url_for('add_book')}}"
           >
-            <span class="u-icon">
-              <svg
-                class="u-svg-content"
-                style="width: 1em; height: 1em"
-                viewbox="0 0 512 512"
-                x="0px"
-                y="0px"
-              >
-                <path
-                  d="m19.98,200.65909l180.67121,0l55.82879,-171.63684l55.82883,171.63684l180.67118,0l-146.16581,106.07619l55.83168,171.63684l-146.16587,-106.07908l-146.16584,106.07908l55.8317,-171.63684l-146.16586,-106.07619z"
-                ></path>
-              </svg>
-            </span>
-            Add Book
+            + Add Book
+            <br />
           </a>
           <input class="u-form-control-hidden" type="submit" value="submit" />
         </div>
-
         {{ form.csrf_token }}
       </form>
     </div>

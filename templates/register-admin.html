@@ -1,108 +1,11 @@
-{% extends 'base.html' %} {% block head %}
+{% extends 'Base.html' %} {% block head %}
 <link
-  href="{{ url_for('static', filename='add-student.css') }}"
+  href="{{ url_for('static', filename='Forms.css') }}"
   media="screen"
   rel="stylesheet"
 />
 
 {% endblock %} {% block content %}
-<section
-  class="u-border-2 u-border-grey-75 u-clearfix u-grey-5 u-section-1"
-  id="sec-4827"
->
-  <div class="u-clearfix u-sheet u-sheet-1">
-    <h3
-      class="u-align-center u-text u-text-custom-color-1 u-text-default u-text-1"
-    >
-     Register Admin
-    </h3>
-    <div class="u-form u-radius-15 u-white u-form-1">
-      <form
-        action="{{ url_for('register_admin') }}"
-        class="u-clearfix u-form-custom-backend u-form-spacing-37 u-form-vertical u-inner-form"
-        method="POST"
-        name="form"
-        redirect="true"
-        source="custom"
-        style="padding: 34px"
-      >
-        <div class="u-form-group u-form-name">
-          <label
-            class="u-label u-text-custom-color-1 u-label-1"
-            for="name-a021"
-          >
-            Admin ID
-          </label>
-          {{ form.admin_id(required=True, id="stutdent_id", class_="u-border-2
-          u-border-custom-color-1 u-input u-input-rectangle u-radius-7
-          u-text-custom-color-1", placeholder="Admin ID") }}
-          <div class="invalid-feedback">
-            {% for error in form.admin_id.errors %}
-            <span>{{ error }}</span>
-            {% endfor %}
-          </div>
-        </div>
-        <div class="u-form-group">
-          <label
-            class="u-label u-text-custom-color-1 u-label-2"
-            for="email-a021"
-          >
-            Admin Name
-          </label>
-          {{ form.name(required=True, id="student_name", class_="u-border-2
-          u-border-custom-color-1 u-input u-input-rectangle u-radius-7
-          u-text-custom-color-1", placeholder="Student Name") }}
-          <div class="invalid-feedback">
-            {% for error in form.name.errors %}
-            <span>{{ error }}</span>
-            {% endfor %}
-          </div>
-        </div>
-        
-        
-        <div class="u-form-group">
-          <label
-            class="u-label u-text-custom-color-1 u-label-2"
-            for="email-a021"
-          >
-            Password
-          </label>
-          {{ form.password(required=True, id="password", class_="u-border-2
-          u-border-custom-color-1 u-input u-input-rectangle u-radius-7
-          u-text-custom-color-1", placeholder="Password", type="password" )}}
-          <div class="invalid-feedback">
-            {% for error in form.password.errors %}
-            <span>{{ error }}</span>
-            {% endfor %}
-          </div>
-        </div> 
 
-        <div class="u-align-center u-form-group u-form-submit">
-          <a
-            class="u-btn u-btn-round u-btn-submit u-button-style u-custom-color-1 u-hover-palette-1-dark-1 u-radius-15 u-btn-1"
-            href="{{ url_for('register_admin') }}"
-          >
-            <span class="u-icon">
-              <svg
-                class="u-svg-content"
-                style="width: 1em; height: 1em"
-                viewbox="0 0 512 512"
-                x="0px"
-                y="0px"
-              >
-                <path
-                  d="m19.98,200.65909l180.67121,0l55.82879,-171.63684l55.82883,171.63684l180.67118,0l-146.16581,106.07619l55.83168,171.63684l-146.16587,-106.07908l-146.16584,106.07908l55.8317,-171.63684l-146.16586,-106.07619z"
-                ></path>
-              </svg>
-            </span>
-            Register Admin
-          </a>
-          <input class="u-form-control-hidden" type="submit" value="submit" />
-        </div>
 
-        {{ form.csrf_token }}
-      </form>
-    </div>
-  </div>
-</section>
 {% endblock %}

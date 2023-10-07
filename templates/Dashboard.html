@@ -1,0 +1,162 @@
+{% extends 'Base.html' %} {% block head %}
+<link
+  href="{{ url_for('static', filename='Dashboard.css') }}"
+  media="screen"
+  rel="stylesheet"
+/>
+
+{% endblock %} {% block content %}
+<section class="u-clearfix u-section-1" id="sec-723f">
+  <div class="u-clearfix u-sheet u-sheet-1">
+    <h3
+      class="u-custom-font u-font-open-sans u-text u-text-custom-color-1 u-text-default u-text-1"
+    >
+      Admin Dashboard
+    </h3>
+    <div
+      class="data-layout-selected u-clearfix u-gutter-0 u-layout-wrap u-layout-wrap-1"
+    >
+      <div class="u-layout">
+        <div class="u-layout-row">
+          <div
+            class="u-container-align-center-md u-container-align-center-sm u-container-align-center-xs u-container-style u-custom-color-1 u-layout-cell u-radius-5 u-shape-round u-size-24 u-layout-cell-1"
+          >
+            <div
+              class="u-border-4 u-border-custom-color-1 u-border-no-bottom u-border-no-left u-border-no-top u-container-layout u-container-layout-1"
+            >
+              <div
+                class="u-container-style u-custom-color-2 u-group u-radius-10 u-shape-round u-group-1"
+              >
+                <div class="u-container-layout u-container-layout-2">
+                  <img
+                    class="u-absolute-hcenter u-expanded-height u-image u-image-contain u-image-1"
+                    data-image-height="267"
+                    data-image-width="189"
+                    src="{{ url_for('static', filename='images/wa_senior_logo.png') }}"
+                  />
+                </div>
+              </div>
+              <p
+                class="u-align-center u-text u-text-default-lg u-text-default-md u-text-default-sm u-text-default-xs u-text-2"
+              >
+               {{current_user.name}}
+              </p>
+              <p
+                class="u-align-center u-text u-text-default-lg u-text-default-md u-text-default-sm u-text-default-xs u-text-3"
+              >
+               {{current_user.admin_id}}
+              </p>
+              <a
+                class="u-active-custom-color-3 u-align-center-md u-align-center-sm u-align-center-xs u-border-active-custom-color-3 u-border-hover-custom-color-4 u-border-none u-btn u-button-style u-custom-color-3 u-hover-custom-color-4 u-btn-1"
+                href="{{url_for('active_students')}}"
+                >Active Students</a
+              >
+              <a
+                class="u-active-custom-color-5 u-align-center-md u-align-center-sm u-align-center-xs u-border-2 u-border-active-custom-color-3 u-border-hover-custom-color-1 u-btn u-button-style u-custom-color-2 u-hover-grey-25 u-btn-2"
+                href="{{url_for('view_report')}}"
+                >Report<br />
+              </a>
+            </div>
+          </div>
+          <div
+            class="u-container-style u-custom-color-2 u-layout-cell u-size-36 u-layout-cell-2"
+          >
+            <div
+              class="u-container-layout u-valign-bottom u-container-layout-3"
+            >
+              <div
+                class="u-align-left u-container-style u-custom-color-5 u-group u-radius-10 u-shape-round u-group-2"
+              >
+                <div class="u-container-layout">
+                  <a
+                    class="u-active-custom-color-3 u-border-none u-btn u-button-style u-custom-color-1 u-hover-custom-color-2 u-btn-3"
+                    href="{{ url_for('borrow_book') }}"
+                    >+</a
+                  >
+                  <p class="u-text u-text-default u-text-4">Borrow Book</p>
+                </div>
+              </div>
+              <div
+                class="u-container-style u-custom-color-5 u-group u-radius-10 u-shape-round u-group-3"
+              >
+                <div class="u-container-layout">
+                  <a
+                    class="u-active-custom-color-3 u-border-none u-btn u-button-style u-custom-color-1 u-hover-custom-color-2 u-btn-4"
+                    href="{{ url_for('return_book') }}"
+                    >+</a
+                  >
+                  <p class="u-text u-text-default u-text-5">Return Book</p>
+                </div>
+              </div>
+
+              <div
+                class="u-align-left u-container-style u-custom-color-5 u-group u-radius-10 u-shape-round u-group-4"
+              >
+                <div class="u-container-layout">
+                  <a
+                    class="u-active-custom-color-3 u-border-none u-btn u-button-style u-custom-color-1 u-hover-custom-color-2 u-btn-5"
+                    href="{{ url_for('view_borrowed_books') }}"
+                    >+</a
+                  >
+                  <p class="u-text u-text-default u-text-6">Books Borrowed</p>
+                </div>
+              </div>
+              <div
+                class="u-container-style u-custom-color-5 u-group u-radius-10 u-shape-round u-group-5"
+              >
+                <div class="u-container-layout">
+                  <a
+                    class="u-active-custom-color-3 u-border-none u-btn u-button-style u-custom-color-1 u-hover-custom-color-2 u-btn-6"
+                    href="{{ url_for('borrow_book') }}"
+                    >+</a
+                  >
+                  <p class="u-text u-text-default u-text-7">
+                    Register Students
+                  </p>
+                </div>
+              </div>
+              <div
+                class="u-container-style u-custom-color-5 u-group u-radius-10 u-shape-round u-group-5"
+              >
+                <div class="u-container-layout">
+                  <a
+                    class="u-active-custom-color-3 u-border-none u-btn u-button-style u-custom-color-1 u-hover-custom-color-2 u-btn-6"
+                    href="{{ url_for('add_book') }}"
+                    >+</a
+                  >
+                  <p class="u-text u-text-default u-text-7">
+                    Add Book
+                  </p>
+                </div>
+              </div>
+              <div
+                class="u-border-2 u-border-custom-color-3 u-container-align-center u-container-style u-group u-radius-10 u-shape-round u-group-6"
+              >
+                <div class="u-container-layout u-container-layout-8">
+                  <h6
+                    class="u-align-center u-text u-text-custom-color-3 u-text-default u-text-8"
+                  >
+                    Statistics
+                  </h6>
+                  <p class="u-align-center u-text u-text-9">
+                    Books borrowed : 71
+                  </p>
+                  <p class="u-align-center u-text u-text-10">
+                    Total Books : 7521
+                  </p>
+                  <p class="u-align-center u-text u-text-11">
+                    Total Students : 721
+                  </p>
+                  <p class="u-align-center u-text u-text-12">
+                    Active Students: 71
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

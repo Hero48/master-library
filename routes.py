@@ -15,7 +15,7 @@ login_manager.login_view = 'login'
 
 @login_manager.user_loader
 def load_user(user_id):
-    return Students.query.get(int(user_id))
+    return Admin.query.get(int(user_id))
 
 
 @login_manager.unauthorized_handler
@@ -41,10 +41,8 @@ def login():
     form = LoginForm()
     if form.validate_on_submit():
       
-        user = Students.query.filter_by(student_id=form.student_id.data).first()
-        # if user.password == None:
-        #     flash('Invalid student id or password', 'warning')
-        #     return redirect(url_for('login'))
+        user = Admin.query.filter_by(admin_id=form.admin_id.data).first()
+       
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=True)
             next_page = request.args.get('next')
@@ -67,7 +65,7 @@ def profile():
     total_borrowed_books = Borrow.query.count()
     total_students = Students.query.count()
     total_books = Library.query.count()
-    return render_template('profile.html', 
+    return render_template('Dashboard.html', 
                            title='Dashboard', 
                            total_borrowed_books=total_borrowed_books, 
                            total_students=total_students, 
@@ -77,7 +75,8 @@ def profile():
 
 
 @app.route("/view-report", methods=["GET", "POST"])
-@login_required
+# TODO: Uncomment The login required
+# @login_required
 def view_report():
     form = ViewReport()
     if form.validate_on_submit():
@@ -92,7 +91,8 @@ def view_report():
         total_active_students = Users.query.filter(Users.entry_time.between(start_date, end_date)).distinct(Users.student_id).count()
         total_hours_spent = db.session.query(func.sum(Users.total_hours)).filter(Users.exit_time.between(start_date, end_date)).scalar()
 
-        return render_template("report-table.html", 
+
+        return render_template("Report-table.html", 
                                start_date=form.start_date.data, 
                                end_date=form.end_date.data, 
                                total_books_available=total_books_available,
@@ -100,11 +100,12 @@ def view_report():
                                total_returned_books=total_returned_books,
                                total_active_students=total_active_students,
                                total_hours_spent=total_hours_spent)
-    return render_template('view-report.html', form=form, title="View Report")
+    return render_template('Report-form.html', form=form, title="View Report")
 
 
 @app.route('/borrow-book', methods=['GET', 'POST'])
-@login_required
+# @login_required
+# TODO: Uncomment login required
 def borrow_book():
     form = BorrowBook()
 
@@ -117,7 +118,7 @@ def borrow_book():
             
             if not student:
                 flash('Invalid Student ID', 'warning')
-                return render_template('borrow_book.html', title='Borrow Book', form=form)
+                return render_template('Borrow-book.html', title='Borrow Book', form=form)
             
             borrow_book = Borrow(
                 title=form.title.data, 
@@ -136,17 +137,17 @@ def borrow_book():
         
         else:
             flash('Book is Unavailable or Wrong Serial No.', 'warning')
-            return render_template('borrow_book.html', title='Borrow Book', form=form)
+            return render_template('Borrow-book.html', title='Borrow Book', form=form)
     
-    return render_template('borrow_book.html', title='Borrow Book', form=form)
+    return render_template('Borrow-book.html', title='Borrow Book', form=form)
 
 
 
 @app.route('/return-book', methods=['GET', 'POST'])
-@login_required
+# @login_required
+# TODO: Uncomment login required    
 def return_book():
     form = ReturnBook()
-    print(form.serial_no.data, form.student_id.data)
 
     if form.validate_on_submit():
         book = Borrow.query.filter_by(serial_no=form.serial_no.data, borrowed_by=form.student_id.data, status='Borrowed').first()
@@ -162,20 +163,21 @@ def return_book():
             return redirect(url_for('profile'))
         else:
             flash("Couldn't Find the required book. Check the serial no. and Student ID", 'warning')
-            return render_template('return_book.html', title='Return Book', form=form)
+            return render_template('Return-book.html', title='Return Book', form=form)
 
-    return render_template('return_book.html', title='Return Book', form=form)
+    return render_template('Return-book.html', title='Return Book', form=form)
 
 
-@app.route('/view-borrowed-books', methods=['GET', 'POST'])
-@login_required
-def view_borrowed_books():
+@app.route('/books-borrowed', methods=['GET', 'POST'])
+# @login_required
+# TODO: Uncomment login required 
+def books_borrowed():
     form = Search()
     books = Borrow.query.all()
     if form.validate_on_submit():
         books = Borrow.query.filter_by(title=form.search.data).all()
-        return render_template('view-table.html', form=form, books=books)
-    return render_template('view-table.html', title='View Borrowed Books', form=form, books=books)
+        return render_template('Books-borrowed.html', form=form, books=books)
+    return render_template('Books-borrowed.html', title='Books Borrowed', form=form, books=books)
 
 
 # @app.route('/view-students', methods=['GET', 'POST'])
@@ -220,7 +222,8 @@ def register_admin():
     return render_template('register-admin.html', form=form, title='Register Admin')
 
 @app.route('/add-book', methods=['GET', 'POST'])
-@login_required
+# TODO: make it login required before deployment
+# @login_required
 def add_book():
     form = AddBook()
     if form.validate_on_submit():
@@ -277,4 +280,4 @@ def login_student():
         flash('Student Logged in successfully', 'success')
         return redirect(url_for('login_student'))
 
-    return render_template('login-student.html', form=form, title="Login Students")
+    return render_template('Login-student.html', form=form, title="Login Students")

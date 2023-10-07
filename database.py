@@ -13,15 +13,27 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 
-class Students(UserMixin, db.Model):
+class Students(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), unique=False, nullable=True)
     student_id = db.Column(db.String(20), unique=True, nullable=False)
     form = db.Column(db.String(20), unique=False, nullable=True)
+   
+    
+    def __repr__(self):
+        return '<Student %r>' % self.name
+    
+
+class Admin(UserMixin, db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(30), unique=False, nullable=True)
+    admin_id = db.Column(db.String(20), unique=True, nullable=False)
     password = db.Column(db.String(60), unique=False, nullable=True)
     
     def __repr__(self):
         return '<Student %r>' % self.name
+    
+
 class Users(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), unique=False, nullable=True)
@@ -39,8 +51,8 @@ class Library(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(60), unique=False, nullable=False)
     serial_no = db.Column(db.String(60), unique=True, nullable=False)
-    author = db.Column(db.String(60), unique=True, nullable=False)
-    publisher = db.Column(db.String(60), unique=True, nullable=False)
+    author = db.Column(db.String(60), unique=False, nullable=False)
+    publisher = db.Column(db.String(60), unique=False, nullable=False)
     status = db.Column(db.String(60), unique=False, nullable=False, default='Available')
     date = db.Column(db.String(20), unique=False, nullable=False, default=datetime.utcnow())
     

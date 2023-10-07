@@ -8,7 +8,7 @@ from wtforms.validators import DataRequired, equal_to, Length
 #login form
 
 class LoginForm(FlaskForm):
-    student_id = StringField('Student ID', validators=[DataRequired(), Length(min=8, max=10)])
+    admin_id = StringField('Student ID', validators=[DataRequired(), Length(min=8, max=10)])
     password = StringField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
 
@@ -49,6 +49,7 @@ class AddBook(FlaskForm):
     book_title = StringField('Book Title', validators=[DataRequired(), Length( min=4, max=20)])
     book_author = StringField('Book Author', validators=[DataRequired(), Length( min=4, max=20)])
     book_publisher = StringField('Book Publisher', validators=[DataRequired(), Length( min=4, max=20)])
+    date_published = DateField("Enter Published Date", validators=[DataRequired()])
     
     submit = SubmitField('Add Book')
 

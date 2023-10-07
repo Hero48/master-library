@@ -1,108 +1,48 @@
-{% extends 'base.html' %} {% block head %}
+{% extends 'Base.html' %} {% block head %}
 <link
-  href="{{ url_for('static', filename='view-table.css') }}"
-  media="all"
-  rel="stylesheet"
-/>
-<link
-  href="{{ url_for('static', filename='print.css') }}"
-  media="print"
+  href="{{ url_for('static', filename='Tables.css') }}"
+  media="screen"
   rel="stylesheet"
 />
 
 {% endblock %} {% block content %}
 
-<section class="u-align-center u-clearfix u-grey-5 u-section-1" id="sec-d382">
-  <br />
-  <br />
-  <div class="u-clearfix u-sheet u-valign-top u-sheet-1">
-    <h4
-      class="u-align-center u-text u-text-custom-color-1 u-text-default u-text-1"
-    >
-      Report for students activities in the library from [ {{start_date}} ] to [
-      {{end_date}} ]
-    </h4>
-    <br />
-    <br />
-    <div class="u-expanded-width u-table u-table-responsive u-table-1">
-      <table class="u-table-entity u-table-entity-1">
-        <colgroup>
-          <col width="70%" />
-          <col width="30%" />
-        </colgroup>
-        <thead class="u-custom-color-1 u-table-header u-table-header-1">
-          <tr style="height: 21px">
-            <th class="u-border-1 u-border-custom-color-3 u-table-cell">
-              Item
-            </th>
-            <th class="u-border-1 u-border-custom-color-3 u-table-cell">
-              Value
-            </th>
-          </tr>
-        </thead>
-        <tbody class="u-table-body u-text-custom-color-1 u-table-body-1">
-          <tr style="height: 50px">
-            <td
-              class="u-border-1 u-border-custom-color-3 u-first-column u-grey-5 u-table-cell u-text-custom-color-1 u-table-cell-7"
-            >
-              Total Books Available
-            </td>
-            <td class="u-border-1 u-border-custom-color-3 u-table-cell">
-              {{total_books_available}}
-            </td>
-          </tr>
-
-          <tr style="height: 50px">
-            <td
-              class="u-border-1 u-border-custom-color-3 u-first-column u-grey-5 u-table-cell u-text-custom-color-1 u-table-cell-7"
-            >
-              Total Borrowed Books
-            </td>
-            <td class="u-border-1 u-border-custom-color-3 u-table-cell">
-              {{total_borrowed_books}}
-            </td>
-          </tr>
-
-          <tr style="height: 50px">
-            <td
-              class="u-border-1 u-border-custom-color-3 u-first-column u-grey-5 u-table-cell u-text-custom-color-1 u-table-cell-7"
-            >
-              Total Returned Books
-            </td>
-            <td class="u-border-1 u-border-custom-color-3 u-table-cell">
-              {{total_returned_books}}
-            </td>
-          </tr>
-
-          <tr style="height: 50px">
-            <td
-              class="u-border-1 u-border-custom-color-3 u-first-column u-grey-5 u-table-cell u-text-custom-color-1 u-table-cell-7"
-            >
-              Total Active Students
-            </td>
-            <td class="u-border-1 u-border-custom-color-3 u-table-cell">
-              {{total_active_students}}
-            </td>
-          </tr>
-
-          <tr style="height: 50px">
-            <td
-              class="u-border-1 u-border-custom-color-3 u-first-column u-grey-5 u-table-cell u-text-custom-color-1 u-table-cell-7"
-            >
-              Total Hours Spent
-            </td>
-            {% if total_hours_spent %}
-            <td class="u-border-1 u-border-custom-color-3 u-table-cell">
-              {{total_hours_spent | round(2)}}
-            </td>
-            {% else %}
-            <td class="u-border-1 u-border-custom-color-3 u-table-cell">0</td>
-            {% endif %}
-          </tr>
-        </tbody>
-      </table>
+<section class="u-clearfix u-container-align-center u-section-4" id="sec-d420">
+    <div class="u-clearfix u-sheet u-sheet-1">
+      <h3 class="u-align-center u-text u-text-custom-color-1 u-text-default u-text-1">Wa Senior High School Library Report</h3>
+      <h4 class="u-align-center u-text u-text-custom-color-3 u-text-default u-text-2">Reports on students activities from [ 2023-12-11 ] to [ 2023-12-22 ]</h4>
+      <div class="u-expanded-width u-table u-table-responsive u-table-1">
+        <table class="u-table-entity">
+          <colgroup>
+            <col width="47.5%">
+            <col width="52.5%">
+          </colgroup>
+          <thead class="u-custom-color-2 u-table-header u-text-custom-color-1 u-table-header-1">
+            <tr style="height: 46px;">
+              <th class="u-border-3 u-border-custom-color-5 u-table-cell u-table-cell-1">Item</th>
+              <th class="u-border-3 u-border-custom-color-5 u-table-cell u-table-cell-2">Value</th>
+            </tr>
+          </thead>
+          <tbody class="u-table-body">
+            <tr style="height: 75px;">
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Total Books Borrowed</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">76 Books</td>
+            </tr>
+            <tr style="height: 76px;">
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Total Books Returned</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">50 Books</td>
+            </tr>
+            <tr style="height: 63px;">
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Number of Students Visits</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">401 Visits</td>
+            </tr>
+            <tr style="height: 76px;">
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Total Hours Spent</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">98 Hours</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
-</section>
-
+  </section>
 {% endblock %}
