@@ -59,3 +59,12 @@ class ViewReport(FlaskForm):
     start_date = DateField("Choose Start Date", validators=[DataRequired()])
     end_date = DateField("Choose End Date", validators=[DataRequired()])
     submit = SubmitField('Submit')
+    
+
+class SearchStudent(FlaskForm):
+    search = StringField('Search Student', validators=[DataRequired()])
+    submit = SubmitField('submit')
+
+class SearchBook(FlaskForm):
+    search = StringField('Search Book', validators=[DataRequired()])
+    submit = SubmitField('submit')

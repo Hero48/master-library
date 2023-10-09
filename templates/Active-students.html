@@ -9,7 +9,7 @@
 <section class="u-clearfix u-section-3" id="sec-7c00">
     <div class="u-clearfix u-sheet u-sheet-1">
       <h3 class="u-align-center u-text u-text-custom-color-1 u-text-default u-text-1">Active Students</h3>
-      <p class="u-align-center u-text u-text-custom-color-3 u-text-default u-text-2">Number Of&nbsp; Active Students: 62</p>
+      <p class="u-align-center u-text u-text-custom-color-3 u-text-default u-text-2">Number Of&nbsp; Active Students: {{active_students}}</p>
       <div class="u-expanded-width u-table u-table-responsive u-table-1">
         <table class="u-table-entity">
           <colgroup>
@@ -31,46 +31,19 @@
             </tr>
           </thead>
           <tbody class="u-table-body">
+            {% for student in students %}
             <tr style="height: 75px;">
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Row 1</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">{{student.name}}</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">{{student.student_id}}</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">{{student.form}}</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">{{student.entry_time}}</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">{{student.exit_time}}</td>
               <td class="u-border-2 u-border-custom-color-5 u-table-cell">
-                <a class="u-active-custom-color-3 u-border-none u-btn u-button-style u-custom-color-5 u-hover-custom-color-2 u-btn-1" href="https://nicepage.com">Exit</a>
+                <a class="u-active-custom-color-3 u-border-none u-btn u-button-style u-custom-color-5 u-hover-custom-color-2 u-btn-1" href="/logout-student/{{student.student_id}}">Exit</a>
               </td>
             </tr>
-            <tr style="height: 76px;">
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Row 2</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">
-                <a class="u-active-custom-color-3 u-border-none u-btn u-button-style u-custom-color-5 u-hover-custom-color-2 u-btn-2" href="https://nicepage.com">Exit</a>
-              </td>
-            </tr>
-            <tr style="height: 63px;">
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Row 3</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">
-                <a class="u-active-custom-color-3 u-border-none u-btn u-button-style u-custom-color-5 u-hover-custom-color-2 u-btn-3" href="https://nicepage.com">Exit</a>
-              </td>
-            </tr>
-            <tr style="height: 76px;">
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Row 4</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">
-                <a class="u-active-custom-color-3 u-border-none u-btn u-button-style u-custom-color-5 u-hover-custom-color-2 u-btn-4" href="https://nicepage.com">Exit</a>
-              </td>
-            </tr>
+            {% endfor %}
+      
           </tbody>
         </table>
       </div>

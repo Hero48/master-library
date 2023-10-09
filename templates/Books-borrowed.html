@@ -36,43 +36,19 @@
             </tr>
           </thead>
           <tbody class="u-table-body">
+            {% for book in books %}
             <tr style="height: 75px;">
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell u-table-cell-8">Row 1</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description<br>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell u-table-cell-8">{{book.student_name}}</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">{{book.borrowed_by}}</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">{{book.title}}</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">{{book.serial_no}}</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">{{book.author}}</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">{{book.borrowed_date}}</td>
+              <td class="u-border-2 u-border-custom-color-5 u-table-cell">{{book.returned_date}}<br>
               </td>
             </tr>
-            <tr style="height: 76px;">
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell u-table-cell-15">Row 2</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell u-table-cell-16">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell u-table-cell-17">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell u-table-cell-18">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell"> Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-            </tr>
-            <tr style="height: 63px;">
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell u-table-cell-22">Row 3</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-            </tr>
-            <tr style="height: 76px;">
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell u-table-cell-29">Row 4</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">Description</td>
-            </tr>
+            {% endfor %}
+           
           </tbody>
         </table>
       </div>

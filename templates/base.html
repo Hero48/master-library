@@ -105,21 +105,8 @@
             <ul
               class="u-custom-font u-font-open-sans u-nav u-spacing-30 u-unstyled u-nav-1"
             >
-              <li class="u-nav-item">
-                <a
-                  class="u-border-2 u-border-active-palette-1-base u-border-hover-palette-1-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-custom-color-3 u-text-custom-color-1 u-text-hover-custom-color-2"
-                  href="Home.html"
-                  style="padding: 10px 0px"
-                  >Home</a
-                >
-              </li>
-              <li class="u-nav-item">
-                <a
-                  class="u-border-2 u-border-active-palette-1-base u-border-hover-palette-1-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-custom-color-3 u-text-custom-color-1 u-text-hover-custom-color-2"
-                  style="padding: 10px 0px"
-                  >Login</a
-                >
-              </li>
+             
+
               <li class="u-nav-item">
                 <a
                   class="u-border-2 u-border-active-palette-1-base u-border-hover-palette-1-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-custom-color-3 u-text-custom-color-1 u-text-hover-custom-color-2"
@@ -130,12 +117,14 @@
                   <ul class="u-h-spacing-20 u-nav u-unstyled u-v-spacing-10">
                     <li class="u-nav-item">
                       <a
+                        href="{{url_for('search_book')}}"
                         class="u-active-custom-color-3 u-button-style u-custom-color-4 u-hover-custom-color-2 u-nav-link"
                         >Search Book</a
                       >
                     </li>
                     <li class="u-nav-item">
                       <a
+                        href="{{url_for('search_student')}}"
                         class="u-active-custom-color-3 u-button-style u-custom-color-4 u-hover-custom-color-2 u-nav-link"
                         >Search Student</a
                       >
@@ -143,6 +132,41 @@
                   </ul>
                 </div>
               </li>
+              <li class="u-nav-item">
+                <a
+                  href="{{url_for('all_books')}}"
+                  class="u-border-2 u-border-active-palette-1-base u-border-hover-palette-1-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-custom-color-3 u-text-custom-color-1 u-text-hover-custom-color-2"
+                  style="padding: 10px 0px"
+                  >All Books</a
+                >
+              </li>
+              {% if current_user.is_authenticated %}
+              <li class="u-nav-item">
+                <a
+                  class="u-border-2 u-border-active-palette-1-base u-border-hover-palette-1-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-custom-color-3 u-text-custom-color-1 u-text-hover-custom-color-2"
+                  href="{{url_for('dashboard')}}"
+                  style="padding: 10px 0px"
+                  >Dashboard</a
+                >
+              </li>
+              <li class="u-nav-item">
+                <a
+                  class="u-border-2 u-border-active-palette-1-base u-border-hover-palette-1-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-custom-color-3 u-text-custom-color-1 u-text-hover-custom-color-2"
+                  href="{{url_for('logout')}}"
+                  style="padding: 10px 0px"
+                  >Logout</a
+                >
+              </li>
+              {% else %}
+              <li class="u-nav-item">
+                <a
+                  href="{{url_for('login')}}"
+                  class="u-border-2 u-border-active-palette-1-base u-border-hover-palette-1-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-custom-color-3 u-text-custom-color-1 u-text-hover-custom-color-2"
+                  style="padding: 10px 0px"
+                  >Login</a
+                >
+              </li>
+              {% endif %}
             </ul>
           </div>
           <div class="u-custom-menu u-nav-container-collapse">

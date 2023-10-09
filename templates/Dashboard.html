@@ -139,17 +139,23 @@
                     Statistics
                   </h6>
                   <p class="u-align-center u-text u-text-9">
-                    Books borrowed : 71
+                    Books borrowed : {{total_borrowed_books}}
                   </p>
                   <p class="u-align-center u-text u-text-10">
-                    Total Books : 7521
+                    Total Books : {{total_books}}
                   </p>
                   <p class="u-align-center u-text u-text-11">
-                    Total Students : 721
+                    Total Students : {{total_students}}
                   </p>
+                  {% if total_active_students %}
                   <p class="u-align-center u-text u-text-12">
-                    Active Students: 71
+                    Active Students: {{active_students}}
                   </p>
+                  {% else %}
+                  <p class="u-align-center u-text u-text-12">
+                    Active Students: 0
+                  </p>
+                  {% endif %}
                 </div>
               </div>
             </div>

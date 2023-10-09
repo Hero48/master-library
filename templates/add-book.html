@@ -6,41 +6,41 @@
 />
 
 {% endblock %} {% block content %}
-<section class="u-clearfix u-container-align-center u-section-3" id="sec-4690">
+
+<section class="u-clearfix u-section-1" id="sec-5c00">
   <div class="u-clearfix u-sheet u-sheet-1">
     <h3
       class="u-align-center u-text u-text-custom-color-1 u-text-default u-text-1"
     >
-      Add New Book
+      Add New search_book
     </h3>
     <div
       class="u-align-center u-border-2 u-border-custom-color-5 u-custom-color-2 u-form u-radius-5 u-form-1"
     >
       <form
         action="{{url_for('add_book')}}"
-        class="u-clearfix u-form-spacing-50 u-form-vertical u-inner-form"
+        class="u-clearfix u-form-custom-backend u-form-spacing-50 u-form-vertical u-inner-form"
         method="POST"
         name="form"
         redirect="true"
-        source="email"
+        source="custom"
         style="padding: 32px"
       >
-        <div class="u-form-group u-label-none">
-          <label class="u-label" for="email-146e"> Book Serial No. </label>
-          {{ form.book_id(required=True, id="book_serial_no",
-          class_="u-border-custom-color-5 u-input u-input-rectangle u-input-2",
-          placeholder="Book Serial No.") }}
-        </div>
         <div class="u-form-group u-form-name u-label-none">
           <label class="u-label" for="name-146e"> Book Title </label>
-          {{ form.book_title(required=True, id="book_title",
+          {{ form.book_title(required=True, id="admin_name",
           class_="u-border-custom-color-5 u-input u-input-rectangle u-input-1",
           placeholder="Book Title") }}
         </div>
-
+        <div class="u-form-group u-label-none">
+          <label class="u-label" for="email-146e"> Book Serial No. </label>
+          {{ form.book_id(required=True, id="admin_id",
+          class_="u-border-custom-color-5 u-input u-input-rectangle u-input-2",
+          placeholder="Boot Serial No.") }}
+        </div>
         <div class="u-form-group u-label-none">
           <label class="u-label" for="message-146e"> Author </label>
-          {{ form.book_author(required=True, id="book_author",
+          {{ form.book_author(required=True, id="admin_password",
           class_="u-border-custom-color-5 u-input u-input-rectangle u-input-3",
           placeholder="Book Author") }}
         </div>
@@ -50,10 +50,10 @@
           class_="u-border-custom-color-5 u-input u-input-rectangle u-input-4",
           placeholder="Book Publisher") }}
         </div>
-        <div class="u-form-group u-label-none u-form-group-5">
-          <label class="u-label" for="text-a129"> Date Published </label>
-          {{ form.date_published(required=True, id="date_published",
-          class_="u-border-custom-color-5 u-input u-input-rectangle u-input-5",
+        <div class="u-form-group u-label-none u-form-group-4">
+          <label class="u-label" for="text-6777"> Book Publisher </label>
+          {{ form.date_published(required=True, id="text",
+          class_="u-border-custom-color-5 u-input u-input-rectangle u-input-4",
           placeholder="Date Published") }}
         </div>
         <div class="u-align-center u-form-group u-form-submit u-label-none">
@@ -71,5 +71,4 @@
     </div>
   </div>
 </section>
-
 {% endblock %}
