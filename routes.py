@@ -282,19 +282,31 @@ def login_student():
 
     return render_template('Login-student.html', form=form, title="Login Students")
 
-
+# TODO: Work On it and also make sure the number of books borrowed and the number of books returned are showing on the table
 @app.route('/search-student', methods=['GET', 'POST'])
 @login_required
 def search_student():
     form = SearchStudent()
     if form.validate_on_submit():
-        # serach by name or student id using like
         search_query = form.search_query.data
-        students = Students.query.filter(or_(Students.name.ilike(f'%{search_query}%'), Students.student_id.ilike(f'%{search_query}%'))).all()
+        students = Students.query.filter(or_(
+            Students.name.ilike(f'%{search_query}%'),
+            Students.student_id.ilike(f'%{search_query}%')
+        )).all()
+        total_students = Students.query.filter(or_(
+            Students.name.ilike(f'%{search_query}%'),
+            Students.student_id.ilike(f'%{search_query}%')
+        )).count()
         if not students:
             flash('No matching students found', 'warning')
             return redirect(url_for('search_student'))
-        return render_template('Search-results.html', students=students, search=search_query)
+        return render_template(
+            'Students-results.html',
+            students=students,
+            search=search_query,
+            total_students=total_students,
+            title="Search Students"
+        )
     return render_template('Search-student.html', form=form, title="Search Students")
 
 @app.route("/search-book", methods=['GET', 'POST'])
@@ -307,7 +319,7 @@ def search_book():
         if not books:
             flash('No matching books found', 'warning')
             return redirect(url_for('search_book'))
-        return render_template('Search-results.html', books=books, search=search_query, total_books=total_books)
+        return render_template('Search-results.html', books=books, search=search_query, total_books=total_books, title="Search Books")
     return render_template('Search-book.html', form=form, title="Search Books")
 
 @app.route('/all-books')
