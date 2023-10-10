@@ -7,30 +7,53 @@
 
 {% endblock %} {% block content %}
 
-<section class="u-clearfix u-container-align-center u-section-10" id="carousel_dd35">
+<section
+  class="u-clearfix u-container-align-center u-section-10"
+  id="carousel_dd35"
+>
   <div class="u-clearfix u-sheet u-sheet-1">
-   <h3 class="u-align-center u-text u-text-custom-color-1 u-text-default u-text-1">
-    Login Student
-   </h3>
-   <div class="u-align-center u-border-2 u-border-custom-color-5 u-custom-color-2 u-form u-radius-5 u-form-1">
-    <form action="{{url_for('login_student')}}" class="u-clearfix u-form-custom-backend u-form-spacing-50 u-form-vertical u-inner-form" method="POST" name="form" redirect="true" source="custom" style="padding: 32px">
-     <div class="u-form-group u-form-name u-label-none">
-      <label class="u-label" for="name-146e">
-       Student ID
-      </label>
-      {{ form.student_id(required=True, id="student_id", class_="u-border-custom-color-5 u-input u-input-rectangle u-input-1", placeholder="Student ID") }}
-     </div>
-     <div class="u-align-center u-form-group u-form-submit u-label-none">
-      <a class="u-active-custom-color-3 u-border-none u-btn u-btn-submit u-button-style u-custom-color-1 u-hover-custom-color-5 u-btn-1" href="{{url_for('login_student')}}">
-       + Login
-       <br/>
-      </a>
-      <input class="u-form-control-hidden" type="submit" value="submit"/>
-     </div>
-    
-     {{ form.csrf_token }}
-    </form>
-   </div>
+    <h3
+      class="u-align-center u-text u-text-custom-color-1 u-text-default u-text-1"
+    >
+      Login Student
+    </h3>
+    <div
+      class="u-align-center u-border-2 u-border-custom-color-5 u-custom-color-2 u-form u-radius-5 u-form-1"
+    >
+      <form
+        action="{{url_for('login_student')}}"
+        class="u-clearfix u-form-custom-backend u-form-spacing-50 u-form-vertical u-inner-form"
+        method="POST"
+        name="form"
+        redirect="true"
+        source="custom"
+        style="padding: 32px"
+      >
+        <div class="u-form-group u-form-name u-label-none">
+          <label class="u-label" for="name-146e"> Student ID </label>
+          {{ form.student_id(required=True, id="student_id",
+          class_="u-border-custom-color-5 u-input u-input-rectangle u-input-1",
+          placeholder="Student ID") }}
+          <div class="invalid-feedback">
+            {% for error in form.student_id.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="u-align-center u-form-group u-form-submit u-label-none">
+          <a
+            class="u-active-custom-color-3 u-border-none u-btn u-btn-submit u-button-style u-custom-color-1 u-hover-custom-color-5 u-btn-1"
+            href="{{url_for('login_student')}}"
+          >
+            + Login
+            <br />
+          </a>
+          <input class="u-form-control-hidden" type="submit" value="submit" />
+        </div>
+
+        {{ form.csrf_token }}
+      </form>
+    </div>
   </div>
- </section>
+</section>
 {% endblock %}

@@ -31,6 +31,11 @@
           {{ form.search(required=True, id="admin_name",
           class_="u-border-custom-color-5 u-input u-input-rectangle u-input-1",
           placeholder="Search by Name/Student ID") }}
+          <div class="invalid-feedback">
+            {% for error in form.search.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
         </div>
       
        

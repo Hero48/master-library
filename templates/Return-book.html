@@ -33,12 +33,22 @@
           {{ form.student_id(required=True, id="student_id",
           class_="u-border-custom-color-5 u-input u-input-rectangle u-input-3",
           placeholder="Student ID") }}
+          <div class="invalid-feedback">
+            {% for error in form.student_id.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
         </div>
         <div class="u-form-group u-label-none">
           <label class="u-label" for="email-146e"> Book Serial No. </label>
           {{ form.serial_no(required=True, id="book_serial_no",
           class_="u-border-custom-color-5 u-input u-input-rectangle u-input-2",
           placeholder="Book Serial No.") }}
+          <div class="invalid-feedback">
+            {% for error in form.serial_no.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
         </div>
         <div class="u-align-center u-form-group u-form-submit u-label-none">
           <a

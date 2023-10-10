@@ -31,6 +31,11 @@
           {{ form.admin_id(required=True, id="admin_name",
           class_="u-border-custom-color-5 u-input u-input-rectangle u-input-1",
           placeholder="Admin ID") }}
+          <div class="invalid-feedback">
+            {% for error in form.admin_id.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
         </div>
        
         <div class="u-form-group u-label-none">
@@ -38,6 +43,11 @@
           {{ form.password(required=True, id="admin_password",
           class_="u-border-custom-color-5 u-input u-input-rectangle u-input-3",
           placeholder="Admin Password", type="password") }}
+          <div class="invalid-feedback">
+            {% for error in form.password.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
         </div>
        
         <div class="u-align-center u-form-group u-form-submit u-label-none">

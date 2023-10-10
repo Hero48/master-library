@@ -36,12 +36,22 @@
           {{ form.start_date(required=True, id="start_date",
           class_="u-border-custom-color-5 u-input u-input-rectangle u-input-1")
           }}
+          <div class="invalid-feedback">
+            {% for error in form.start_date.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
         </div>
         <div class="u-form-group u-label-none">
           <label class="u-label" for="email-146e"> End Date </label>
           {{ form.end_date(required=True, id="end_date",
           class_="u-border-custom-color-5 u-input u-input-rectangle u-input-2")
           }}
+          <div class="invalid-feedback">
+            {% for error in form.end_date.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
         </div>
         <div class="u-align-center u-form-group u-form-submit u-label-none">
           <a

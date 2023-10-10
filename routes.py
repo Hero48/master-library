@@ -84,14 +84,12 @@ def view_report():
         start_date=form.start_date.data
         end_date=form.end_date.data
         result = Users.query.filter(Users.entry_time.between(form.start_date.data, form.end_date.data)).all()
-        # TODO: work on the values for the return books
-        # It is not displaying as it should
         total_books_available = Library.query.filter_by(status='Available').count()
         total_borrowed_books = Borrow.query.filter(Borrow.borrowed_date.between(start_date, end_date)).count()
         total_returned_books = Borrow.query.filter(Borrow.returned_date.between(start_date, end_date)).count()
         total_active_students = Users.query.filter(Users.entry_time.between(start_date, end_date)).distinct(Users.student_id).count()
         total_hours_spent = db.session.query(func.sum(Users.total_hours)).filter(Users.exit_time.between(start_date, end_date)).scalar()
-
+        total_books = Library.query.count()
 
         return render_template("Report-table.html", 
                                start_date=form.start_date.data, 
@@ -100,7 +98,8 @@ def view_report():
                                total_borrowed_books=total_borrowed_books,
                                total_returned_books=total_returned_books,
                                total_active_students=total_active_students,
-                               total_hours_spent=total_hours_spent)
+                               total_hours_spent=total_hours_spent,
+                               total_books = total_books)
     return render_template('Report-form.html', form=form, title="View Report")
 
 
@@ -171,8 +170,10 @@ def return_book():
 @login_required
 def books_borrowed():
     books = Borrow.query.all()
+    total_borrowed_books = Borrow.query.count()
+    total_returned_books = Borrow.query.filter_by(status='Returned').count()
   
-    return render_template('Books-borrowed.html', title='Books Borrowed', books=books)
+    return render_template('Books-borrowed.html', title='Books Borrowed', books=books, total_borrowed_books=total_borrowed_books, total_returned_books=total_returned_books)
 
 
 # @app.route('/all-students', methods=['GET', 'POST'])
@@ -282,30 +283,32 @@ def login_student():
 
     return render_template('Login-student.html', form=form, title="Login Students")
 
-# TODO: Work On it and also make sure the number of books borrowed and the number of books returned are showing on the table
+
 @app.route('/search-student', methods=['GET', 'POST'])
 @login_required
 def search_student():
     form = SearchStudent()
     if form.validate_on_submit():
-        search_query = form.search_query.data
-        students = Students.query.filter(or_(
+        search_query = form.search.data
+        student = Students.query.filter(or_(
             Students.name.ilike(f'%{search_query}%'),
             Students.student_id.ilike(f'%{search_query}%')
-        )).all()
-        total_students = Students.query.filter(or_(
-            Students.name.ilike(f'%{search_query}%'),
-            Students.student_id.ilike(f'%{search_query}%')
-        )).count()
-        if not students:
+        )).first()
+        if not student:
             flash('No matching students found', 'warning')
             return redirect(url_for('search_student'))
+        books_borrowed = Borrow.query.filter_by(borrowed_by=student.student_id).count()
+        books_returned = Borrow.query.filter_by(borrowed_by=student.student_id, status='Returned').count()
+        visit_count = Users.query.filter_by(student_id=student.student_id).count()
+       
         return render_template(
             'Students-results.html',
-            students=students,
+            student=student,
             search=search_query,
-            total_students=total_students,
-            title="Search Students"
+            title="Search Students",
+            books_borrowed=books_borrowed,
+            books_returned=books_returned,
+            visit_count=visit_count
         )
     return render_template('Search-student.html', form=form, title="Search Students")
 
@@ -345,11 +348,10 @@ def all_books():
 
 
 
-
 @app.route("/spykvng/6542")
 def reset_db():
-    db.session.drop_all()
-    db.session.create_all()
+    db.drop_all()
+    db.create_all()
     db.session.commit()
     flash("Database Reset")
     return redirect(url_for('register_admin'))

@@ -71,7 +71,7 @@ class Borrow(db.Model):
     student_name = db.Column(db.String(60), unique=False, nullable=False)
 
     borrowed_date = db.Column(db.String(20), unique=False, nullable=False, default=datetime.utcnow())
-    returned_date = db.Column(db.String(20), unique=False, nullable=True)
+    returned_date = db.Column(db.DateTime, unique=False, nullable=True)
     
     def __repr__(self):
         return '<Book %r>' % self.title

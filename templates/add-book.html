@@ -31,30 +31,55 @@
           {{ form.book_title(required=True, id="admin_name",
           class_="u-border-custom-color-5 u-input u-input-rectangle u-input-1",
           placeholder="Book Title") }}
+          <div class="invalid-feedback">
+            {% for error in form.book_title.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
         </div>
         <div class="u-form-group u-label-none">
           <label class="u-label" for="email-146e"> Book Serial No. </label>
           {{ form.book_id(required=True, id="admin_id",
           class_="u-border-custom-color-5 u-input u-input-rectangle u-input-2",
           placeholder="Boot Serial No.") }}
+          <div class="invalid-feedback">
+            {% for error in form.book_id.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
         </div>
         <div class="u-form-group u-label-none">
           <label class="u-label" for="message-146e"> Author </label>
           {{ form.book_author(required=True, id="admin_password",
           class_="u-border-custom-color-5 u-input u-input-rectangle u-input-3",
           placeholder="Book Author") }}
+          <div class="invalid-feedback">
+            {% for error in form.book_author.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
         </div>
         <div class="u-form-group u-label-none u-form-group-4">
           <label class="u-label" for="text-6777"> Book Publisher </label>
           {{ form.book_publisher(required=True, id="text",
           class_="u-border-custom-color-5 u-input u-input-rectangle u-input-4",
           placeholder="Book Publisher") }}
+          <div class="invalid-feedback">
+            {% for error in form.book_publisher.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
         </div>
         <div class="u-form-group u-label-none u-form-group-4">
           <label class="u-label" for="text-6777"> Book Publisher </label>
           {{ form.date_published(required=True, id="text",
           class_="u-border-custom-color-5 u-input u-input-rectangle u-input-4",
           placeholder="Date Published") }}
+          <div class="invalid-feedback">
+            {% for error in form.date_published.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
         </div>
         <div class="u-align-center u-form-group u-form-submit u-label-none">
           <a
