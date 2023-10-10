@@ -105,8 +105,6 @@
             <ul
               class="u-custom-font u-font-open-sans u-nav u-spacing-30 u-unstyled u-nav-1"
             >
-             
-
               <li class="u-nav-item">
                 <a
                   class="u-border-2 u-border-active-palette-1-base u-border-hover-palette-1-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-custom-color-3 u-text-custom-color-1 u-text-hover-custom-color-2"
@@ -152,6 +150,31 @@
               <li class="u-nav-item">
                 <a
                   class="u-border-2 u-border-active-palette-1-base u-border-hover-palette-1-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-custom-color-3 u-text-custom-color-1 u-text-hover-custom-color-2"
+                  style="padding: 10px 0px"
+                  >Upload Data</a
+                >
+                <div class="u-nav-popup">
+                  <ul class="u-h-spacing-20 u-nav u-unstyled u-v-spacing-10">
+                    <li class="u-nav-item">
+                      <a
+                        href="{{url_for('upload_books')}}"
+                        class="u-active-custom-color-3 u-button-style u-custom-color-4 u-hover-custom-color-2 u-nav-link"
+                        >Upload Books</a
+                      >
+                    </li>
+                    <li class="u-nav-item">
+                      <a
+                        href="{{url_for('upload_students')}}" 
+                        class="u-active-custom-color-3 u-button-style u-custom-color-4 u-hover-custom-color-2 u-nav-link"
+                        >Upload Students</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="u-nav-item">
+                <a
+                  class="u-border-2 u-border-active-palette-1-base u-border-hover-palette-1-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-custom-color-3 u-text-custom-color-1 u-text-hover-custom-color-2"
                   href="{{url_for('logout')}}"
                   style="padding: 10px 0px"
                   >Logout</a
@@ -179,13 +202,13 @@
                   class="u-align-center u-nav u-popupmenu-items u-text-custom-color-1 u-unstyled u-nav-3"
                 >
                   <li class="u-nav-item">
-                    <a class="u-button-style u-nav-link" href="Home.html"
-                      >Home</a
+                    <a
+                      class="u-button-style u-nav-link"
+                      href="{{url_for('all_books')}}"
+                      >All Books</a
                     >
                   </li>
-                  <li class="u-nav-item">
-                    <a class="u-button-style u-nav-link">Login</a>
-                  </li>
+
                   <li class="u-nav-item">
                     <a class="u-button-style u-nav-link">Search</a>
                     <div class="u-nav-popup">
@@ -193,16 +216,69 @@
                         class="u-h-spacing-20 u-nav u-unstyled u-v-spacing-10"
                       >
                         <li class="u-nav-item">
-                          <a class="u-button-style u-nav-link">Search Book</a>
+                          <a
+                            href="{{url_for('search_book')}}"
+                            class="u-button-style u-nav-link"
+                            >Search Book</a
+                          >
                         </li>
                         <li class="u-nav-item">
-                          <a class="u-button-style u-nav-link"
+                          <a
+                            href="{{url_for('search_student')}}"
+                            class="u-button-style u-nav-link"
                             >Search Student</a
                           >
                         </li>
                       </ul>
                     </div>
                   </li>
+                  {% if current_user.is_authenticated %}
+                  <li class="u-nav-item">
+                    <a
+                      href="{{url_for('dashboard')}}"
+                      class="u-button-style u-nav-link"
+                      >Dashboard</a
+                    >
+                  </li>
+                  <li class="u-nav-item">
+                    <a class="u-button-style u-nav-link">Upload</a>
+                    <div class="u-nav-popup">
+                      <ul
+                        class="u-h-spacing-20 u-nav u-unstyled u-v-spacing-10"
+                      >
+                        <li class="u-nav-item">
+                          <a
+                            href="{{url_for('upload_books')}}"
+                            class="u-button-style u-nav-link"
+                            >Upload Books</a
+                          >
+                        </li>
+                        <li class="u-nav-item">
+                          <a
+                            href="{{url_for('upload_students')}}"
+                            class="u-button-style u-nav-link"
+                            >Upload Students</a
+                          >
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li class="u-nav-item">
+                    <a
+                      href="{{url_for('logout')}}"
+                      class="u-button-style u-nav-link"
+                      >Logout</a
+                    >
+                  </li>
+                  {% else %}
+                  <li class="u-nav-item">
+                    <a
+                      href="{{url_for('login')}}"
+                      class="u-button-style u-nav-link"
+                      >Login</a
+                    >
+                  </li>
+                  {% endif %}
                 </ul>
               </div>
             </div>
@@ -224,7 +300,7 @@
         >
           <a
             class="u-active-none u-border-none u-btn u-button-link u-button-style u-hover-none u-none u-text-custom-color-1 u-btn-1"
-            href="Home.html"
+            href="{{url_for('login_student')}}"
             >Wa Senior High</a
           >
         </h5>

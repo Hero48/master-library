@@ -33,12 +33,12 @@
           <label class="u-label" for="name-146e"> Student ID </label>
           {{ form.student_id(required=True, id="student_id",
           class_="u-border-custom-color-5 u-input u-input-rectangle u-input-1",
-          placeholder="Student ID") }}
-          <div class="invalid-feedback">
-            {% for error in form.student_id.errors %}
-            <span>{{ error }}</span>
-            {% endfor %}
-          </div>
+          placeholder="Student ID", min="10") }}
+        </div>
+        <div class="invalid-feedback">
+          {% for error in form.student_id.errors %}
+          <span>{{ error }}</span>
+          {% endfor %}
         </div>
         <div class="u-align-center u-form-group u-form-submit u-label-none">
           <a

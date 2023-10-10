@@ -1,6 +1,6 @@
 from app import app
-from  flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, SelectField, TextAreaField, DateField
+from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField, SelectField, TextAreaField, DateField, FileField
 from wtforms.validators import DataRequired, EqualTo, Length
 
 
@@ -8,26 +8,23 @@ from wtforms.validators import DataRequired, EqualTo, Length
 #login form
 
 class LoginForm(FlaskForm):
-    admin_id = StringField('Student ID', validators=[DataRequired(), Length(min=8, max=10)])
+    admin_id = StringField('Student ID', validators=[DataRequired()])
     password = StringField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
 
 class BorrowBook(FlaskForm):
-    student_id = StringField('Student ID', validators=[DataRequired(), Length(min=8, max=10)])
+    student_id = StringField('Student ID', validators=[DataRequired()])
     title = StringField("Book's Title", validators=[DataRequired()])
-    serial_no = StringField("Book's Serial No.", validators=[DataRequired(), Length(min=4, max=20)])
+    serial_no = StringField("Book's Serial No.", validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 class ReturnBook(FlaskForm):
-    student_id = StringField('Student ID', validators=[DataRequired(), Length(min=8, max=10)])
+    student_id = StringField('Student ID', validators=[DataRequired()])
     serial_no = StringField("Book's Serial No.", validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 class LoginStudent(FlaskForm):
-    student_id = StringField('Login Student', validators=[DataRequired(), Length(min=8, max=10)])
-    submit = SubmitField('submit')
-class Search(FlaskForm):
-    search = StringField('Login Student', validators=[DataRequired(), Length(min=8, max=10)])
+    student_id = StringField('Login Student', validators=[DataRequired()])
     submit = SubmitField('submit')
 
 
@@ -68,3 +65,12 @@ class SearchStudent(FlaskForm):
 class SearchBook(FlaskForm):
     search = StringField('Search Book', validators=[DataRequired()])
     submit = SubmitField('submit')
+
+
+class UploadBooks(FlaskForm):
+    file = FileField('File', validators=[DataRequired()])
+    submit = SubmitField('Upload Books')
+
+class UploadStudents(FlaskForm):
+    file = FileField('File', validators=[DataRequired()])
+    submit = SubmitField('Upload Students')

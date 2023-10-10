@@ -5,7 +5,9 @@ from flask_bcrypt import Bcrypt
 from database import *
 from forms import *
 from sqlalchemy import func, or_
-
+import pandas as pd
+import os
+from icecream import ic
 
 
 bcrypt = Bcrypt(app)
@@ -176,18 +178,6 @@ def books_borrowed():
     return render_template('Books-borrowed.html', title='Books Borrowed', books=books, total_borrowed_books=total_borrowed_books, total_returned_books=total_returned_books)
 
 
-# @app.route('/all-students', methods=['GET', 'POST'])
-# # @ TODO: make it login required before deployment
-# # @login_required
-# def all_students():
-#     form = Search()
-#     students = Students.query.all() 
-#     if form.validate_on_submit():
-#         students = Students.query.filter_by(student_id=form.search.data).all()
-
-#         return render_template('All-students.html', form=form, students=students)
-#     return render_template('All-students.html', form=form, students=students)
- 
 
 
 @app.route('/add-student', methods=['GET', 'POST'])
@@ -267,6 +257,8 @@ def login_student():
     form = LoginStudent()
 
     if form.validate_on_submit():
+        ic(form.student_id.data)
+        print("\n here \n")
         student = Students.query.filter_by(student_id=form.student_id.data).first()
         if not student:
             flash('Invalid student id', 'warning')
@@ -333,10 +325,81 @@ def all_books():
 
 
 
+@app.route('/upload-books', methods=['GET', 'POST'])
+@login_required
+def upload_books():
+    form = UploadBooks()
+    if form.validate_on_submit():
+        file = form.file.data
+        if file:
+            df = pd.read_excel(file)
+            try:
+
+                for index, row in df.iterrows():
+                    bk = Library.query.filter_by(serial_no=row['serial_no']).first()
+                    if bk:
+                        continue
+                    book = Library(
+                        title=row['title'],
+                        serial_no=row['serial_no'],
+                        author=row['author'],
+                        publisher=row['publisher'],
+                        date_published=row['date_published'],
+                        status=row['status']
+                    )
+                    db.session.add(book)
+            except:
+                pass
+            db.session.commit()
+            flash('Books uploaded successfully', 'success')
+            return redirect(url_for('dashboard'))
+    return render_template('Upload-books.html', form=form, title="Upload Books")
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@app.route('/upload-students', methods=['GET', 'POST'])
+@login_required
+def upload_students():
+    form = UploadStudents()
+    if form.validate_on_submit():
+        file = form.file.data
+        if file:
+            df = pd.read_excel(file)
+            for index, row in df.iterrows():
+                stnt = Students.query.filter_by(student_id=row['student_id']).first()
+                if stnt:
+                    continue
+                student = Students(
+                    name=row['name'],
+                    student_id=row['student_id'],
+                    form=row['form']
+                )
+                db.session.add(student)
+            db.session.commit()
+            flash('Students uploaded successfully', 'success')
+            return redirect(url_for('dashboard'))
+    return render_template('Upload-students.html', form=form, title="Upload Students")
 
 
 
