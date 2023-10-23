@@ -213,17 +213,28 @@ def register_admin():
 def add_book():
     form = AddBook()
     if form.validate_on_submit():
-        book = Library.query.filter_by(serial_no=form.book_id.data).first()
-        if book:
-            flash("Book ID is already Assigned")
+        existing_book = Library.query.filter_by(serial_no=form.book_id.data).first()
+        if existing_book:
+            flash("Book ID is already assigned")
             return redirect(url_for('add_book'))
-        book = Library(title=form.book_title.data, serial_no=form.book_id.data, author=form.book_author.data, publisher=form.book_publisher.data, date_published=form.date_published.data, status='Available')
-        db.session.add(book)
+        
+        new_book = Library(
+            title=form.book_title.data,
+            serial_no=form.book_id.data,
+            author=form.book_author.data,
+            publisher=form.book_publisher.data,
+            date_published=form.date_published.data,
+            category=form.category.data,
+            reference=form.reference.data,
+            status='Available'
+        )
+        db.session.add(new_book)
         db.session.commit()
 
         flash('Book added successfully', 'success')
         return redirect(url_for('dashboard'))
-    return render_template('add-book.html', form=form, title='Add Book')
+    
+    return render_template('Add-book.html', form=form, title='Add Book')
 
 
 @app.route('/logout-student/<student_id>')
@@ -345,6 +356,8 @@ def upload_books():
                         author=row['author'],
                         publisher=row['publisher'],
                         date_published=row['date_published'],
+                        category=row['category'],
+                        reference=row['reference'],
                         status=row['status']
                     )
                     db.session.add(book)

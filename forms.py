@@ -48,7 +48,8 @@ class AddBook(FlaskForm):
     book_author = StringField('Book Author', validators=[DataRequired(), Length( min=4, max=20)])
     book_publisher = StringField('Book Publisher', validators=[DataRequired(), Length( min=4, max=20)])
     date_published = DateField("Enter Published Date", validators=[DataRequired()])
-    
+    category = SelectField('Category', choices=[('Fiction', 'Fiction'), ('Non-Fiction', 'Non-Fiction')], validators=[DataRequired()])
+    reference = StringField('Reference', validators=[DataRequired(), Length( min=4, max=20)])
     submit = SubmitField('Add Book')
 
 

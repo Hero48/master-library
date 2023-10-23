@@ -12,7 +12,7 @@
     <h3
       class="u-align-center u-text u-text-custom-color-1 u-text-default u-text-1"
     >
-      Add New search_book
+      Add New Book
     </h3>
     <div
       class="u-align-center u-border-2 u-border-custom-color-5 u-custom-color-2 u-form u-radius-5 u-form-1"
@@ -66,6 +66,28 @@
           placeholder="Book Publisher") }}
           <div class="invalid-feedback">
             {% for error in form.book_publisher.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="u-form-group u-label-none u-form-group-4">
+          <label class="u-label" for="text-6777"> Category</label>
+          {{ form.category(required=True, id="text",
+          class_="u-border-custom-color-5 u-input u-input-rectangle u-input-4",
+          placeholder="Book Category") }}
+          <div class="invalid-feedback">
+            {% for error in form.category.errors %}
+            <span>{{ error }}</span>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="u-form-group u-label-none u-form-group-4">
+          <label class="u-label" for="text-6777"> Book Reference No </label>
+          {{ form.reference(required=True, id="text",
+          class_="u-border-custom-color-5 u-input u-input-rectangle u-input-4",
+          placeholder="Book Reference No") }}
+          <div class="invalid-feedback">
+            {% for error in form.reference.errors %}
             <span>{{ error }}</span>
             {% endfor %}
           </div>

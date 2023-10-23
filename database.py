@@ -56,6 +56,8 @@ class Library(db.Model):
     date_published = db.Column(db.String(60), unique=False, nullable=False)
     status = db.Column(db.String(60), unique=False, nullable=False, default='Available')
     date = db.Column(db.String(20), unique=False, nullable=False, default=datetime.utcnow())
+    category = db.Column(db.String(60), unique=False, nullable=False)
+    reference = db.Column(db.String(60), unique=False, nullable=True)
     # TODO: add a reference column
     
     def __repr__(self):
