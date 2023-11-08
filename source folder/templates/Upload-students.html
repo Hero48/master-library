@@ -1,0 +1,71 @@
+{% extends 'Base.html' %} {% block head %}
+<link
+  href="{{ url_for('static', filename='Forms.css') }}"
+  media="screen"
+  rel="stylesheet"
+/>
+
+{% endblock %} {% block content %}
+
+<section class="u-clearfix u-container-align-center u-section-6" id="sec-ed2f">
+  <div class="u-clearfix u-sheet u-sheet-1">
+    <h3
+      class="u-align-center u-text u-text-custom-color-1 u-text-default u-text-1"
+    >
+      Upload Students Data
+    </h3>
+    <div
+      class="u-align-center u-border-2 u-border-custom-color-5 u-custom-color-2 u-form u-radius-5 u-form-1"
+    >
+      <form
+        action="{{url_for('upload_students')}}"
+        enctype="multipart/form-data"
+        class="u-clearfix u-form-custom-backend u-form-spacing-50 u-form-vertical u-inner-form"
+        method="POST"
+        name="form"
+        redirect="true"
+        source="custom"
+        style="padding: 47px"
+      >
+        <div class="u-form-group u-form-name u-label-none">
+          <label class="u-label" for="name-146e"> Upload File </label>
+          <div
+            class="u-border-custom-color-5 u-input u-input-rectangle u-input-1"
+          >
+            {{ form.file(required=True, id="upload_file") }}
+          </div>
+        </div>
+        <div class="u-align-center u-form-group u-form-submit u-label-none">
+          <a
+            class="u-active-custom-color-3 u-border-none u-btn u-btn-submit u-button-style u-hover-custom-color-5"
+            href="{{url_for('upload_students')}}"
+          >
+            + Upload
+            <br />
+          </a>
+          <input class="u-form-control-hidden" type="submit" value="submit" />
+        </div>
+
+        {{ form.csrf_token }}
+      </form>
+    </div>
+    <p class="u-align-center u-text u-text-default u-text-2">
+      <span class="u-text-custom-color-3"> Hint </span>
+      : Columns names
+      <span style="font-weight: 700">
+        <span class="u-text-custom-color-1"> Must </span>
+        <span style="font-weight: 400">
+          Match the tamplates columns names
+        </span>
+      </span>
+    </p>
+    <a
+      class="u-active-custom-color-3 u-border-none u-btn u-button-style u-custom-color-2 u-hover-custom-color-1 u-text-active-custom-color-1 u-text-custom-color-3 u-btn-2"
+      href="{{url_for('static', filename='Book1.xlsx')}}"
+    >
+      Template
+    </a>
+  </div>
+</section>
+
+{% endblock %}

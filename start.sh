@@ -1,3 +1,1 @@
-
-git pull origin master
-python app.py
+python './source folder/app.py'
