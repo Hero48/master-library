@@ -29,7 +29,7 @@ class LoginStudent(FlaskForm):
 
 
 class AddStudent(FlaskForm):
-    student_id = StringField('Student ID', validators=[DataRequired(), Length(min=3, max=10)])
+    student_id = StringField('Student ID', validators=[DataRequired(), Length(min=6, max=10)])
     name = StringField('Student Name', validators=[DataRequired()])
     form = StringField('Student Form', validators=[DataRequired()])
     submit = SubmitField('Add Sutdent')
