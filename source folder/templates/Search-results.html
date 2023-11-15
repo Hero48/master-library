@@ -51,6 +51,8 @@
               {% if current_user.is_authenticated %}
             <th
               class="u-border-3 u-border-custom-color-5 u-table-cell u-table-cell-6">Update</th>
+            <th
+              class="u-border-3 u-border-custom-color-5 u-table-cell u-table-cell-6">Delete</th>
               {% endif %}
           </tr>
         </thead>
@@ -68,6 +70,9 @@
             <td class="u-border-2 u-border-custom-color-5 u-table-cell"> <a
                 class="u-active-custom-color-3 u-border-none u-btn u-button-style u-custom-color-5 u-hover-custom-color-2 u-btn-1"
                 href="/update-book/{{book.serial_no}}">Update</a></td>
+            <td class="u-border-2 u-border-custom-color-5 u-table-cell"> <a
+                class="u-active-custom-color-3 u-border-none u-btn u-button-style u-custom-color-3 u-hover-custom-color-2 u-btn-1"
+                href="/delete-book/{{book.serial_no}}">Delete</a></td>
           </tr>
           {% endif %}
           {% endfor %}

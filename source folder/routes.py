@@ -203,7 +203,7 @@ def register_admin():
         admin = Admin(name=form.name.data, admin_id=form.admin_id.data, password=password)
         db.session.add(admin)
         db.session.commit()
-        print("\n here \n")
+        
         flash('Admin Registered Successfully', 'success')
         return redirect(url_for('dashboard'))
     return render_template('Register-admin.html', form=form, title='Register Admin')
@@ -268,8 +268,6 @@ def login_student():
     form = LoginStudent()
 
     if form.validate_on_submit():
-        ic(form.student_id.data)
-        print("\n here \n")
         student = Students.query.filter_by(student_id=form.student_id.data).first()
         if not student:
             flash('Invalid student id', 'warning')
@@ -450,11 +448,31 @@ def upload_students():
 
 
 
+@app.route('/delete-book/<book_id>')
+@login_required
+def delete_book(book_id):
+    book = Library.query.filter_by(serial_no=book_id).first()
+    if book:
+        db.session.delete(book)
+        db.session.commit()
+        flash('Book deleted successfully', 'success')
+        return redirect(url_for('dashboard'))
+    flash('Invalid book ID', 'warning')
+    return redirect(url_for('dashboard'))
 
 
 
-
-
+@app.route('/delete-student/<student_id>')
+@login_required
+def delete_student(student_id):
+    student = Students.query.filter_by(student_id=student_id).first()
+    if student:
+        db.session.delete(student)
+        db.session.commit()
+        flash('Student deleted successfully', 'success')
+        return redirect(url_for('dashboard'))
+    flash('Invalid student ID', 'warning')
+    return redirect(url_for('dashboard'))
 
 
 
