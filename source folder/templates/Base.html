@@ -136,13 +136,25 @@
                 </div>
               </li>
               <li class="u-nav-item">
-                <a
-                  href="{{url_for('all_books')}}"
+                <a href="{{url_for('all_books')}}"
                   class="u-border-2 u-border-active-palette-1-base u-border-hover-palette-1-base u-border-no-left u-border-no-right u-border-no-top u-button-style u-nav-link u-text-active-custom-color-3 u-text-custom-color-1 u-text-hover-custom-color-2"
                   style="padding: 10px 0px"
                   >All Books</a
                 >
+                <div class="u-nav-popup">
+                  <ul class="u-h-spacing-20 u-nav u-unstyled u-v-spacing-10">
+                    <li class="u-nav-item">
+                      <a
+                        href="{{url_for('all_students')}}"
+                        class="u-active-custom-color-3 u-button-style u-custom-color-4 u-hover-custom-color-2 u-nav-link"
+                        >All Students</a
+                      >
+                    </li>
+                    
+                  </ul>
+                </div>
               </li>
+            
               {% if current_user.is_authenticated %}
               <li class="u-nav-item">
                 <a

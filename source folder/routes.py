@@ -373,24 +373,58 @@ def upload_books():
 
 
 
+@app.route("/all-students")
+@login_required
+def all_students():
+    all_students = Students.query.all()
+    total_students = Students.query.count()
+    return render_template("All-students.html", total_students=total_students, all_students = all_students)
 
 
 
+@app.route('/update-book/<book_id>', methods=['GET', 'POST'])
+@login_required
+def update_book(book_id):
+    book = Library.query.filter_by(serial_no=book_id).first()
+    if book:
+        form = AddBook()
+        if form.validate_on_submit():
+            book.title = form.book_title.data
+            book.serial_no = form.book_id.data
+            book.author = form.book_author.data
+            book.publisher = form.book_publisher.data
+            book.date_published = form.date_published.data
+            book.category = form.category.data
+            book.reference= form.reference.data
+
+            db.session.commit()
+            flash("Book updated successfully", "success")
+            return redirect(url_for('dashboard'))
+
+        return render_template('Update-book.html', form=form, book=book, title='Update book', book_id=book_id)
+    flash('Invalid book ID', 'warning')
+    return redirect(url_for('dashboard'))
 
 
+@app.route('/update-student/<student_id>', methods=['GET', 'POST'])
+@login_required
+def update_student(student_id):
+    student = Students.query.filter_by(student_id=student_id).first()
+    if student:
+        form = AddStudent()
+        if form.validate_on_submit():
+            student.name = form.name.data
+            student.student_id = form.student_id.data
+            student.form = form.form.data
+          
 
+            db.session.commit()
+            flash("Student updated successfully", "success")
+            return redirect(url_for('dashboard'))
 
-
-
-
-
-
-
-
-
-
-
-
+        return render_template('Update-student.html', form=form, student=student, title='Update student', student_id=student_id)
+    flash('Invalid student ID', 'warning')
+    return redirect(url_for('dashboard'))
 @app.route('/upload-students', methods=['GET', 'POST'])
 @login_required
 def upload_students():
@@ -424,7 +458,7 @@ def upload_students():
 
 
 
-@app.route("/spykvng/6542")
+@app.route("/reset")
 def reset_db():
     db.drop_all()
     db.create_all()

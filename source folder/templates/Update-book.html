@@ -12,13 +12,13 @@
     <h3
       class="u-align-center u-text u-text-custom-color-1 u-text-default u-text-1"
     >
-      Add New Book
+      Update Book
     </h3>
     <div
       class="u-align-center u-border-2 u-border-custom-color-5 u-custom-color-2 u-form u-radius-5 u-form-1"
     >
       <form
-        action="{{url_for('add_book')}}"
+        action="/update-book/{{book_id}}"
         class="u-clearfix u-form-custom-backend u-form-spacing-50 u-form-vertical u-inner-form"
         method="POST"
         name="form"
@@ -30,7 +30,7 @@
           <label class="u-label" for="name-146e"> Book Title </label>
           {{ form.book_title(required=True, id="admin_name",
           class_="u-border-custom-color-5 u-input u-input-rectangle u-input-1",
-          placeholder="Book Title") }}
+          placeholder="Book Title", value=book.title) }}
           <div class="invalid-feedback">
             {% for error in form.book_title.errors %}
             <span>{{ error }}</span>
@@ -41,7 +41,7 @@
           <label class="u-label" for="email-146e"> Book Serial No. </label>
           {{ form.book_id(required=True, id="admin_id",
           class_="u-border-custom-color-5 u-input u-input-rectangle u-input-2",
-          placeholder="Book Serial No.") }}
+          placeholder="Book Serial No.", value=book.serial_no) }}
           <div class="invalid-feedback">
             {% for error in form.book_id.errors %}
             <span>{{ error }}</span>
@@ -52,7 +52,7 @@
           <label class="u-label" for="message-146e"> Author </label>
           {{ form.book_author(required=True, id="admin_password",
           class_="u-border-custom-color-5 u-input u-input-rectangle u-input-3",
-          placeholder="Book Author") }}
+          placeholder="Book Author", value=book.author) }}
           <div class="invalid-feedback">
             {% for error in form.book_author.errors %}
             <span>{{ error }}</span>
@@ -63,7 +63,7 @@
           <label class="u-label" for="text-6777"> Book Publisher </label>
           {{ form.book_publisher(required=True, id="text",
           class_="u-border-custom-color-5 u-input u-input-rectangle u-input-4",
-          placeholder="Book Publisher") }}
+          placeholder="Book Publisher", value=book.publisher) }}
           <div class="invalid-feedback">
             {% for error in form.book_publisher.errors %}
             <span>{{ error }}</span>
@@ -74,7 +74,7 @@
           <label class="u-label" for="text-6777"> Category</label>
           {{ form.category(required=True, id="text",
           class_="u-border-custom-color-5 u-input u-input-rectangle u-input-4",
-          placeholder="Book Category") }}
+          placeholder="Book Category", value=book.category) }}
           <div class="invalid-feedback">
             {% for error in form.category.errors %}
             <span>{{ error }}</span>
@@ -85,7 +85,7 @@
           <label class="u-label" for="text-6777"> Book Shelve No. </label>
           {{ form.reference(required=True, id="text",
           class_="u-border-custom-color-5 u-input u-input-rectangle u-input-4",
-          placeholder="Shelve Reference No") }}
+          placeholder="Shelve Reference No", value=book.reference) }}
           <div class="invalid-feedback">
             {% for error in form.reference.errors %}
             <span>{{ error }}</span>
@@ -106,9 +106,9 @@
         <div class="u-align-center u-form-group u-form-submit u-label-none">
           <a
             class="u-active-custom-color-3 u-border-none u-btn u-btn-submit u-button-style u-hover-custom-color-5"
-            href="{{url_for('add_book')}}"
+            href="/update-book/{{book_id}}"
           >
-            + Add Book
+            + Update Book
             <br />
           </a>
           <input class="u-form-control-hidden" type="submit" value="submit" />

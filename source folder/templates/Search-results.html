@@ -2,52 +2,80 @@
 <link
   href="{{ url_for('static', filename='Tables.css') }}"
   media="screen"
-  rel="stylesheet"
-/>
+  rel="stylesheet" />
 
 {% endblock %} {% block content %}
- 
-<section class="u-clearfix u-container-align-center-xl u-section-2" id="sec-ddd3">
-    <div class="u-clearfix u-sheet u-sheet-1">
-      <h3 class="u-align-center u-text u-text-custom-color-1 u-text-default u-text-1">Search Results for : {{search}}</h3>
-      <p class="u-align-center u-text u-text-custom-color-3 u-text-default u-text-2">Total Number of results : {{total_books}}</p>
-      <div class="u-align-left u-expanded-width u-table u-table-responsive u-table-1">
-        <table class="u-table-entity">
-          <colgroup>
-            <col width="18.9%">
-            <col width="14.6%">
-            <col width="19.6%">
-            <col width="15.3%">
-            <col width="17.7%">
-            <col width="13.899999999999995%">
-          </colgroup>
-          <thead class="u-custom-color-2 u-table-header u-text-custom-color-1 u-table-header-1">
-            <tr style="height: 46px;">
-              <th class="u-border-3 u-border-custom-color-5 u-table-cell u-table-cell-1">Book Title</th>
-              <th class="u-border-3 u-border-custom-color-5 u-table-cell u-table-cell-2">Book Serial No.</th>
-              <th class="u-border-3 u-border-custom-color-5 u-table-cell u-table-cell-3">Book Author</th>
-              <th class="u-border-3 u-border-custom-color-5 u-table-cell u-table-cell-4">Book Publisher</th>
-              <th class="u-border-3 u-border-custom-color-5 u-table-cell u-table-cell-5">Date Published</th>
-              <th class="u-border-3 u-border-custom-color-5 u-table-cell u-table-cell-6">Status</th>
-            </tr>
-          </thead>
-          <tbody class="u-table-body">
-            {% for book in books %}
-            <tr style="height: 75px;">
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">{{book.title}}</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">{{book.serial_no}}</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">{{book.author}}</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">{{book.publisher}}</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">{{book.date_published}}</td>
-              <td class="u-border-2 u-border-custom-color-5 u-table-cell">{{book.status}}</td>
-            </tr>
-            {% endfor %}
-           
-          </tbody>
-        </table>
-      </div>
-    </div>
-  </section>
 
+<section class="u-clearfix u-container-align-center-xl u-section-2"
+  id="sec-ddd3">
+  <div class="u-clearfix u-sheet u-sheet-1">
+    <h3
+      class="u-align-center u-text u-text-custom-color-1 u-text-default u-text-1">Search
+      Results for : {{search}}</h3>
+    <p
+      class="u-align-center u-text u-text-custom-color-3 u-text-default u-text-2">Total
+      Number of results : {{total_books}}</p>
+    <div
+      class="u-align-left u-expanded-width u-table u-table-responsive u-table-1">
+      <table class="u-table-entity">
+        <colgroup>
+          <col width="18.9%">
+          <col width="14.6%">
+          <col width="19.6%">
+          <col width="15.3%">
+          <col width="17.7%">
+          <col width="13.899999999999995%">
+        </colgroup>
+        <thead
+          class="u-custom-color-2 u-table-header u-text-custom-color-1 u-table-header-1">
+          <tr style="height: 46px;">
+            <th
+              class="u-border-3 u-border-custom-color-5 u-table-cell u-table-cell-1">Book
+              Title</th>
+            <th
+              class="u-border-3 u-border-custom-color-5 u-table-cell u-table-cell-2">Book
+              Serial No.</th>
+            <th
+              class="u-border-3 u-border-custom-color-5 u-table-cell u-table-cell-3">Book
+              Author</th>
+            <th
+              class="u-border-3 u-border-custom-color-5 u-table-cell u-table-cell-4">Book
+              Publisher</th>
+            <th
+              class="u-border-3 u-border-custom-color-5 u-table-cell u-table-cell-5">Date
+              Published</th>
+            <th
+              class="u-border-3 u-border-custom-color-5 u-table-cell u-table-cell-5">Shelve reference</th>
+            <th
+              class="u-border-3 u-border-custom-color-5 u-table-cell u-table-cell-6">Status</th>
+              {% if current_user.is_authenticated %}
+            <th
+              class="u-border-3 u-border-custom-color-5 u-table-cell u-table-cell-6">Update</th>
+              {% endif %}
+          </tr>
+        </thead>
+        <tbody class="u-table-body">
+          {% for book in books %}
+          <tr style="height: 75px;">
+            <td class="u-border-2 u-border-custom-color-5 u-table-cell">{{book.title}}</td>
+            <td class="u-border-2 u-border-custom-color-5 u-table-cell">{{book.serial_no}}</td>
+            <td class="u-border-2 u-border-custom-color-5 u-table-cell">{{book.author}}</td>
+            <td class="u-border-2 u-border-custom-color-5 u-table-cell">{{book.publisher}}</td>
+            <td class="u-border-2 u-border-custom-color-5 u-table-cell">{{book.date_published}}</td>
+            <td class="u-border-2 u-border-custom-color-5 u-table-cell">{{book.reference}}</td>
+            <td class="u-border-2 u-border-custom-color-5 u-table-cell">{{book.status}}</td>
+            {% if current_user.is_authenticated %}
+            <td class="u-border-2 u-border-custom-color-5 u-table-cell"> <a
+                class="u-active-custom-color-3 u-border-none u-btn u-button-style u-custom-color-5 u-hover-custom-color-2 u-btn-1"
+                href="/update-book/{{book.serial_no}}">Update</a></td>
+          </tr>
+          {% endif %}
+          {% endfor %}
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
 
 {% endblock %}
